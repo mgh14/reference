@@ -1,0 +1,9 @@
+GIT reference:
+- Rename last N commits (via rebase -i): 
+	- be on branch to change commit names
+	- git rebase -i master
+	- write/quit between each screen (:wq) 
+  
+- Show last 3 commits: 
+	- oneline pretty format: git log -3 --pretty=oneline
+	- custom pretty format: git log -3 --pretty=format:"%h"
