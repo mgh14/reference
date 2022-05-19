@@ -14,3 +14,21 @@ POSTGRESQL reference:
 	alter table <table> alter column <column> drop not null;
   
 - Cheat sheet: https://www.educba.com/postgresql-cheat-sheet/
+
+- WITH <temp table name> AS (<sql here>) SELECT * FROM <table>
+	- e.g.: WITH participants AS (
+		SELECT identity_uuid FROM x 
+		union 
+		SELECT identity_uuid FROM y) SELECT * FROM participants;
+- left join a on b: right side (i.e. the b side) may have nulls (if any)
+	- e.g.: select a.identity_uuid, b.identity_uuid from schema.table_a a left join schema.table_b b on a.identity_uuid = b.identity_uuid;
+		- 'a' doesn't have all the identities that b.identity has, but it's a left join so there will be gaps only on the right side (if any). In this case there aren't any
+		- if the query were reversed to the 'b' side being first, since only some identities are in the 'b' table, there would be TONS of nulls doing this left join, i.e. (null, <identity_uuid from schema.table_a table>)
+	- right join would be opposite of this				   
+- generate UUID: uuid_generate_v4()
+- JSON stuff: 
+	- removes 'display' from the top level when it has a value of ":
+		WITH myjson_table AS (
+		   SELECT '{"top": 0, "left": 0, "color": {"hex": "black", "cmyk": "black"}, "width": 7, "border": {"top": {"color": {"hex": "black", "cmyk": "black"}, "style": "solid", "width": 0}, "left": {"color": {"hex": "black", "cmyk": "black"}, "style": "solid", "width": 0}, "right": {"color": {"hex": "black", "cmyk": "black"}, "style": "solid", "width": 0}, "bottom": {"color": {"hex": "black", "cmyk": "black"}, "style": "solid", "width": 0}}, "height": 7, "margin": {"top": 0, "left": 0, "right": 0, "bottom": 0}, "display": null, "padding": {"top": 0, "left": 0, "right": 0, "bottom": 0}, "flexGrow": 0, "fontSize": 12, "position": "absolute", "boxSizing": "border-box", "textAlign": "left", "flexShrink": 1, "fontFamily": "Gotham-Book", "lineHeight": "normal", "flexDirection": "row", "letterSpacing": "normal", "textTransform": "none", "backgroundColor": {"hex": "transparent", "cmyk": "transparent"}}'
+		      ::jsonb AS col)
+		select col, (col - 'display') from myjson_table WHERE col @> '{"display": null}';
