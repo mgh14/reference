@@ -25,6 +25,39 @@ BASH:
 	do
 	<command>, e.g. echo $i
 	done
+	
+GREP:
+- extended regexp, -E
+	- (look for ');' at the end of each line): grep -E ");$" file.txt 
+- show line numbers: -n
+	grep -n "abc" file.txt
+- count instances: -c
+	grep -c "abc" file.txt
+- include/exclude file: --include or --exclude
+	grep --exclude "*.sql" "abc" file.sql
+	- include/exclude directory: --include-dir --exclude-dir
+	- NOTE: excludes TAKE PRECIDENCE OVER INCLUDES!!!
+- Don't search devices, FIFOs, sockets: -D skip
+	grep -R -D skip "abc" /
+- Don't print filename: -h
+- MULTIPLE PATTERNS!!! -e
+	grep -e "^abc.+" -e "^otherpattern.+" file.txt
+	- for multiple NOTs, use -ve for each:
+		grep -E -ve ";$" -ve "uigznaosy" -ve "--" -ve "^\s*$" -ve "^ALTER TABLE ONLY" -ve "\s+at org\.springframework" dev-core-db-dump-2-sep-2021.sql
+	- Positive match uses of -e function as OR's, not AND's:
+		grep -E -e "--" -e "^\s*$" -m 10 dev-core-db-dump-2-sep-2021.sql | grep -E -e "-- Dumped" -e "-- PostgreSQL database dump"
+			- this returns instances of lines with only ONE of the above final grep's -e pattern matched
+- Ignore binary files: -I
+- List only the names of files not containing selected lines: -L
+- List files with matches, only searching until first instance INSIDE THE FILE is found: -l 
+	- (lowercase L)
+	- i.e. still lists multiple files, in other words list every file that has at least one match
+- Max count/number of matches: -m
+- Only show matching part of line: -o 
+- Run silent, i.e. nonexistent or unreadable files ignored (messages suppressed): -s
+- Line regexp, Only input lines selected against an entire fixed string or regular expression are considered to be matching lines: -x
+- The expression is searched for as a word (as if surrounded by `[[:<:]]' and `[[:>:]]'; see re_format(7)): -w
+- Prints a zero-byte after the file name: --null
   
 - copy file from user1 to user2 (user2 has elevated privileges):
 	- login as user1
