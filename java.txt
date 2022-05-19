@@ -7,6 +7,12 @@ JAVA reference:
 	- https://docs.oracle.com/javadb/10.10.1.2/adminguide/radminjmxenabledisable.html
 	- https://docs.oracle.com/javase/7/docs/technotes/guides/management/agent.html#gdeum
 	- in docker: https://github.com/cstroe/java-jmx-in-docker-sample-app/blob/master/README.md
+	- start app with jmx enabled (put these in the java start cmd):
+		-Dcom.sun.management.jmxremote
+		-Dcom.sun.management.jmxremote.port=9010
+		-Dcom.sun.management.jmxremote.local.only=false
+		-Dcom.sun.management.jmxremote.authenticate=false
+		-Dcom.sun.management.jmxremote.ssl=false
 - For implementing a stream: <...>.sorted(Comparator.comparing(new Function<stream target object, OBJECT TYPE TO COMPARE>() {...}))
 - Capturing heap dumps: 7 ways (https://blog.heaphero.io/2017/10/13/how-to-capture-java-heap-dumps-7-options/)
 - Read file:
