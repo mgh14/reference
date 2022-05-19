@@ -1,0 +1,16 @@
+POSTGRESQL reference:
+
+- psql:
+	- run a file on the postgres db: psql -U <username> -h <host> -d <database-name> -f <file to run> -p <port>
+		- example: psql -U postgres -h localhost -p 5432 -d mydbname -f myfiletorun.sql
+	- connect to database via psql (e.g. inside docker postgres): psql -v --username "$POSTGRES_USER" --dbname "$POSTGRES_DB"
+  
+- initialize/start database:
+	- initdb -D /usr/local/pgsql/data
+	- pg_ctl -D /usr/local/pgsql/data -l <logfile> start
+		- start with postgres: postgres -D /usr/local/pgsql/data > logfile
+    
+- Drop NOT NULL constraint:
+	alter table <table> alter column <column> drop not null;
+  
+- Cheat sheet: https://www.educba.com/postgresql-cheat-sheet/
