@@ -1,0 +1,33 @@
+MAC reference:
+- export BASH_SILENCE_DEPRECATION_WARNING=1    # Silence the zsh message in the shell
+- cmd + shift + . : show all files
+- cmd + up: go to the next directory up :D
+- option + cmd: new file window in file
+- cmd + shift + p: show/hide preview
+- cmd + shift + /: open search in help menu
+- cmd + i = finder info, but cmd + opt + i = inspector, which follows which file you highlight
+- ctrl + f3: focus on dock
+Un-minize window: cmd + tab, highlight app to unminimize, then up (or down) pick the right window with arrow keys, then press enter
+	- also: cmd + tab, highlight app to unminimize, then let go of cmd and press option
+- SUBLIME DIALOG BOX: 
+	- cmd + d: SHORTCUT FOR DON'T SAVE
+	- cmd + ., escape: Cancel
+	- enter: save
+- finder/save/open dialogs goto:
+	- cmd + shift + f: recents
+	- cmd + shift + o: documents
+	- cmd + shift + d: desktop
+	- cmd + shift + h: home
+	- cmd + shift + u: utilities
+	- OPTION + shift + l: downloads
+	- cmd + up: goto enclosing folder :D
+	- cmd + shift + [: go back to last folder
+- ctrl + F7 (WITHOUT function key in my case, since I have it turned on): turns on/off tabbing only between textboxes to tabbing between textboxes, buttons, dropdowns, etc.!!! (can be turned on/off in Preferences -> Keyboard -> Shortcuts -> All controls/Text boxes and lists only
+	- shift + tab: highlights backwards
+	- don't use 'enter' when something is highlighted in blue; use spacebar
+- opt + click/drag: in finder, this creates a copy of the file dragged to the new location!!! 
+- terminal:
+	- defaults domains | xargs -E ',' -n1 echo: shows all Mac OS "domains" that can be manipulated, e.g. the Dock, loginwindow, com.apple.Terminal, etc. 
+- Most apps: cmd + shift + /: focuses on the help menu search bar
+- special characters: press and hold the char, like 'e', to get a popup of chars with other marks
+- ctrl + cmd + space: brings up emojis
