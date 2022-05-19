@@ -101,6 +101,17 @@ SPRING:
     return response.getBody();
 - spring configures auto configurations AFTER custom, project configurations!!!
 - flyway schema history table name: flyway_schema_history
+- Manual transaction manager for component tests: 
+	@Autowired 
+	org.springframework.transaction.PlatformTransactionManager transactionManager;
+
+	- start/end transaction:
+		var status = transactionManager.getTransaction(TransactionDefinition.withDefaults());
+		...
+		transactionManager.commit(status);
+
+- Exclude auto configs from @SpringBootTest:
+	@EnableAutoConfiguration(exclude = GraphQLJavaToolsAutoConfiguration.class)
 
 ---------------------------------------------------------------------------------
 MAVEN:
