@@ -3,6 +3,7 @@ DOCKER reference:
 - get into a container's shell: sudo docker run -it --entrypoint /bin/bash [docker_image]
 	- also: adding --rm makes it a temporary container :D 
 		sudo docker run --rm -it <rest of command...>
+	- attach to running container, but run sh: docker exec -it 077d /bin/sh
 - https://goinbigdata.com/docker-run-vs-cmd-vs-entrypoint/
 	- RUN is an image build step; CMD is the command the container executes by default
 		- CMD can be overridden 
@@ -39,3 +40,10 @@ DOCKER reference:
 	- in docker compose yaml:
 		- "build: ." will look in current directory and build the container before starting
 	- docker compose automatically creates a bridge network and attaches the containers in the compose file to it
+
+- tagging: docker tag SOURCE_IMAGE[:TAG] <tag-name>
+	- assume image e76925554e77: docker tag e76925554e77 harbor.octanner.io/developer/cc-yb-api-dev-data:v26jan2022
+- buildx: ???
+	- e.g. docker buildx build --no-cache --progress=plain -t content-api -f Dockerfile .
+- Use an environment file: --env-file <name>
+	- e.g. docker run --env-file 'myEnv.env' 01923809as09d
