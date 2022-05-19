@@ -1,0 +1,51 @@
+GIMP reference:
+
+Selection: 
+	- cmd + option: moves the layer!! :D
+	- shift + option: creates a COPY and moves the copy!! :D 
+	- cmd by itself: moves the selection itself
+	- hold shift AFTER starting selection: different things, square for rectangle :) 
+	- hold cmd AFTER starting selection: square from the center :)
+	- opt: moves selection
+	- cmd + comma: fill with FG color!
+	- cmd + period: fill with BG color!
+Measure:
+	- option + click on endpoint: creates vertical guide!
+	- opt: MOVES the measure!
+	- cmd + click on endpoint: horizontal guide
+	- cmd: snaps to 15 degree increments
+Paint common:
+	- ctrl + opt + mousewheel: change opacity of brush
+	- cmd: color dropper
+	- shift + cmd: straight line + 15 degree increments!! :D FINALLY
+	- opt + up/down: change brush size by ten! :D 
+Fuzzy or Wand:
+	- click + drag: changes the selected threshold! Sweet!!!
+Colors:
+	- d: resets default black/white FG/BG colors
+Move Tool:
+	- shift: move guides 
+		- delete guides: drag them off the screen
+Layers:
+	- Shift, cmd, and opt work on these buttons too! :) 
+	- ctrl + tab (from inside the editor): focus on different layers!!!
+	- opt + mousewheel click: also cycle through layers!!!
+		- ALSO: PICK THE NEXT VISIBLE LAYER?
+	- cmd + shift + d: DUPLICATE LAYERS!!!! 
+	- cmd + shift + n: new layer!
+	- cmd + l (lower case 'L'): switch focus to layers guide, can use arrow keys
+More Mousewheel:
+	- hold shift: rotates view!
+	- shift + 1 (i.e. exclamation point): resets view
+Paths:
+	- shift + v, or opt + click: selection from path!! :D 
+Misc:
+	- cmd + opt + f: show file location!! :D 
+	- cmd + shift + j: center image in window
+	- z: now zoom disabled! 
+	- cmd + shift + t: show/hide guides! 
+	- 1-9: different view options
+	- opt + tab: scroll between IMAGES (canvases)
+	- File types:
+		- regular gimp brush: .gbr
+		- animated brush: .gih (gimp image hose)
