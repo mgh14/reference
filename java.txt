@@ -70,6 +70,13 @@ JAVA reference:
   
 - javap: disassemble class files to view bytecode
 
+- the duration of a Minor GC is reliant not on the size of the heap, but on the number of objects that survive the collection. That means that for applications that mostly create short-lived objects, increasing the size of the young generation can actually reduce both GC duration and frequency. However, if increasing the size of the young generation will lead to a significant increase in objects needing to be copied in survivor spaces, GC pauses will take longer leading to increased latency.
+
+- the best results can be achieved by providing the collection with its expected size upon construction.
+
+- Comparing the class of a variable to a known class: MyClass.class.isAssignableFrom(variable.getClass())
+	- This means variable.getClass() would be an instance of MyClass OR still assignable as a parent type
+
 ---------------------------------------------------------------------------------
 SPRING:
 - Parameterized type reference with use of RestTemplate: new ParameterizedTypeReference<List<ScheduledCelebrationAction>>() {};
@@ -103,3 +110,14 @@ MAVEN:
 - Errors and debug: -X -e
 - Debug maven build itself: mvnDebug
 	- will require attaching a debugger on port 8000
+- running a specific plugin: mvn <groupId>:<artifactId>:<version>:<goal> 
+	e.g. com.coveo:fmt-maven-plugin:2.9:format
+	- dependency tree: org.apache.maven.plugins:maven-dependency-plugin:3.3.0:tree
+		- note: use -DoutputFile=fileNameHere.txt to put to a file
+- remove all the "downloading" messages (since v3.6.1): -ntp
+- skip various:
+	-Dfmt.skip: skip formatting (formatting plugin)
+	-Dpmd.skip: skip PMD (PMD plugin)
+- verion 3.6.1: add -ntp to skip all the "downloading" messages
+	- another way: 
+		RUN ./mvnw package --batch-mode -s settings.xml -DskipTests -Dmaven.test.skip=true -Djacoco.skip=true -Dpmd.skip -Dfmt.skip -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
