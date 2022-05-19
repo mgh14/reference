@@ -31,3 +31,11 @@ Un-minize window: cmd + tab, highlight app to unminimize, then up (or down) pick
 - Most apps: cmd + shift + /: focuses on the help menu search bar
 - special characters: press and hold the char, like 'e', to get a popup of chars with other marks
 - ctrl + cmd + space: brings up emojis
+- Restart finder: killall Finder
+- Mount dmg image: sudo hdiutil attach <image>.dmg
+	- mounts to /Volumes/<image>
+	- example install: sudo installer -package /Volumes/<image>/<image>.pkg -target / 
+	- unmount the image: sudo hdiutil detach /Volumes/<image>
+
+Sublime Text:
+- in find bar: opt + enter: select all instances
