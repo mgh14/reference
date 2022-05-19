@@ -1,0 +1,96 @@
+INTELLIJ reference:
+
+From Anywhere:
+- "Most important shortcut in IntelliJ": cmd + shift + A, search for actions
+- hide all windows (or bring back what was previously hidden): shift + cmd + f12
+- Recent places/locations, including a couple of lines of code/text: cmd + shift + e
+- run anything: ctrl, ctrl (ctrl + release ctrl button + ctrl again)
+
+From Editor:
+- switch splits: option + tab
+- complete statement: cmd + shift + enter
+- refactoring menu: ctrl + t
+- ctrl pp ctrl: ??
+- Highlight all occurrences: cmd + shift + F7
+	- Move between them: cmd + G (backwards, add shift)
+- Peek definition: cmd + Y
+- Show usages: opt + cmd + F7
+- Move line up a complete statement, down: cmd + shift + up
+	- Move up a single line: opt + shift + up
+- Collapse/uncollapse block: cmd + . 
+- Multiple cursors: opt, opt (hold it down) + up/down
+	- enable column editing mode: opt + shift + F8
+- open Live templates dropdown: cmd + J
+- console, cmd G to multiple cursors! how?
+- cmd + option + T: surround menu
+	- cmd + shift + delete: unwrap
+- cmd + option + o: look for symbol (variable, method)
+- ctrl + space: completion list lookup menu
+- multiple selections:
+	- control + g: select symbol at caret
+		- control + g again: next occurrence of this symbol
+		- control + shift + g: delesect last occurrence
+	- cmd + cntl + g: select all occurrences in file 
+- ctrl + shift + p: show variable type
+- ctrl + shift + q: show context (method name?)
+- cmd + opt + m: extract method
+- cmd + opt + /: block comments
+- ctrl + opt + n: "New in this directory"
+- opt + cmd + n: inline refactoring on method name
+- place cursor on 'return' or 'throw', then cmd + shift + F7: shows all compiler-discernible places a method will return
+- ctrl + opt + r: Run configuration popup
+- opt + cmd + r: debug configuration popup
+- cmd + shift + u: upper/lower case
+- New subpackage/class from EDITOR: in editor window, cmd + up to jump to the navigation bar, arrow keys, then cmd + n to create a new subpackage/class :D
+- Quick definition: opt + space
+- Collapse/expand sections: cmd + minus/plus
+	- to collapse/expand ALL sections: cmd + shift + minus/plus :D
+- cmd + n: open 'generate menu' popup
+- open type or method hierarchy: ctrl + h / cmd + shift + h
+- shift + cmd + F7 (at 'throws' statement): show all places this exception could be thrown in a method
+- ctrl + opt + f: introduce field
+- ctrl + shift + space: smart completion
+	- ctrl + shift + space TWICE: "looks further afield" to find anything matching completion
+- ctrl + shift + p ONCE: see what the type of something is
+	- crtl + shift + p TWICE: see what the value of something (like a primitive long or object reference) can be
+
+From any tool window:
+- F12: return to previous tool window
+- Restore all tool windows: cmd + shift + F12
+- cmd + shift + left/right or up/down arrow: change size of project/tool window
+- Such as Maven or Persistence, shift + escape closes the window :) 
+
+Inside Maven Pom: 
+- Add dependency inside maven pom: see 'generate menu' in editor
+- cmd + 7: bring up structure window (eliminate scrolling inside maven pom :) )
+
+From Debugging (tool) window:
+- expand/collapse expression evaluator (debugging): shift + enter
+
+From DB (tool) window:
+- inside console sql file, cmd + B goes to column definition
+	- F1 for quick documentation!
+	- cmd + F12: table columns!
+
+From project (tool) window:
+- opt + cmd + enter: bring up project window settings dropdown :)
+- highlight a file and press space: previews the file without opening it :)	
+- opt + c: case-(in)sensitive search
+- opt + w: word matches only search
+- Scroll right/left in PROJECT window: cmd + left/right
+
+Inside of Local Changes/Git (tool):
+	- opt + cmd + enter: bring up menu that allows revert!
+	- control + enter: create new changelist :D 
+
+Inside any Popup window:
+- cmd + shift + up/down/left/right RESIZES the window!! :D 
+
+Inside Diff popup:
+- Move change from left diff to right diff: ctrl + shift + rightarrow
+
+Inside commit window popup: 
+- To split changes made to the same file between different commits, in the Commit Changes dialog ⌘K click Diff. Select the checkbox next to each chunk of modified or new code that you want to commit and click Commit. Unselected changes will stay in the current changelist.
+
+Inside Settings popup:
+- settings -> keymap has a search by shortcut!! :D
