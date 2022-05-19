@@ -1,0 +1,41 @@
+DOCKER reference:
+
+- get into a container's shell: sudo docker run -it --entrypoint /bin/bash [docker_image]
+	- also: adding --rm makes it a temporary container :D 
+		sudo docker run --rm -it <rest of command...>
+- https://goinbigdata.com/docker-run-vs-cmd-vs-entrypoint/
+	- RUN is an image build step; CMD is the command the container executes by default
+		- CMD can be overridden 
+- See usage: docker system df -v
+- Docker inspections: docker inspect <container|image|network|OTHERS?>
+- Real docker cleans:
+	- docker image prune
+	- docker run --privileged --pid=host docker/desktop-reclaim-space
+	- docker system prune
+	- see https://docs.docker.com/docker-for-mac/space/
+- copy file:
+	- docker cp foo.txt mycontainer:/foo.txt
+- build with tag: docker build -t <tag name> <directory>
+	- docker build -t ccybdev-data .
+- in image build, run multiple commands with single RUN: &&\
+	- e.g.: RUN mkdir -p /folder/to/make &&\
+					chown postgres /folder/to/make &&\
+					cd /folder/to/make
+- expose port (run command): -p<port1>:<port2>, e.g. -p5432:2345
+	- port1: HOST port (i.e. my machine)
+	- port2: CONTAINER port (docker's port)
+	- note: -P (capital p) will map the exposed port to a random port on the host interface (my machine)
+- network commands:
+	- show docker networks: docker network ls
+		- default is 'bridge' on Macs
+	- inspect docker network: docker network inspect <network name>, e.g. docker network inspect bridge
+	- get a container's IP address: 
+		docker container inspect -f '{{ .NetworkSettings.IPAddress }}' <CONTAINER_ID_OR_NAME>
+	- connect a container to a network: docker network connect <network name> <container instance id>
+	- Notes:
+		- inside a container, you can use the network name as the domain name (like localhost), e.g. "jdbc:mysql://<network-name-here>/myDB" and it will resolve correctly
+			- supposedly can also do this when naming a docker compose service??
+		- best practice: create a network for containers to connect to instead of relying on the default network
+	- in docker compose yaml:
+		- "build: ." will look in current directory and build the container before starting
+	- docker compose automatically creates a bridge network and attaches the containers in the compose file to it
