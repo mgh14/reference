@@ -1,0 +1,52 @@
+	- Strings:
+		- <string>.length, e.g. 'abc'.length
+		
+		- <string>.substr(index1, index2), e.g. 'abc'.substr(1,2)
+		
+		- <string>.indexOf(needle), e.g. 'abcdef'.indexOf('def')
+			- not found: returns -1
+
+		- <string>.toLowerCase() (or .toUpperCase())
+
+		- <string>.replace:
+			'abcdef'.replace(/\s/g, "")
+		
+		- JSON.stringify({ "propertyName": "propertyValue" })
+
+		- print out string: console.log()
+			- e.g. console.log('statusCode: ${res.statusCode}')
+
+	- http (note: axios requires npm install beforehand):
+		const axios = require('axios')
+		headerOptions = { "Authorization", "Bearer awioeroai" }
+		axios
+		  .post('https://whatever.com/todos', {
+		    todo: 'Buy the milk'
+		  }, headerOptions)
+		  .then(res => {
+		    console.log('statusCode: ${res.status}')
+		    console.log(res)
+		  })
+		  .catch(error => {
+		    console.error(error)
+		  })
+
+	- uuid:
+		require('crypto').randomUUID()
+
+	- node-fetch:
+		const f = require('node-fetch');
+		f.default("wss://lenses-nonprod.octanner.io/api/ws/v2/sql/execute", {
+		  "headers": {
+		    "accept-language": "en-US,en;q=0.9",
+		    "cache-control": "no-cache",
+		    "pragma": "no-cache",
+		    "sec-gpc": "1",
+		    "sec-websocket-extensions": "permessage-deflate; client_max_window_bits",
+		    "sec-websocket-key": "+f2e0ktZvBfMugXL8YteLw==",
+		    "sec-websocket-version": "13",
+		    "cookie": "_ga=GA1.2.436946248.1645833180; _gid=GA1.2.1047385652.1652370011; ll.token=170467a8-313f-4f33-899b-a6f805dca5b2"
+		  },
+		  "body": null,
+		  "method": "GET"
+		});
