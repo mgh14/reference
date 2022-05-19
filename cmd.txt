@@ -1,77 +1,79 @@
-BASH:
-- arguments:
-	- last argument (from last command): !$
-	- nth argument (from last command): !:n
-		- e.g. !:2
-	- all n arguments: !:n-$
-		- e.g. !:3-$ for everything after the second word
-	- last arg of n commands ago: !-n:$
-		- e.g. !-4:$ for the last arg four commands ago
-	- strip filename off of folder: !$:h
-		- e.g. cd /etc/docker fails, then cd !$:h goes to /etc
-	- nth arg of current line: !#:n
-		- e.g. echo a b c !#:2 yields 'echo a b c b'
-    
-- find:
-	- execute command for each result: find /path/to/start -type f -name "*.plist" -exec sed -i -e 's/SEARCH/REPLACE/g' \;
-		- another example: find . -name "*.jar" -exec echo {} \;
-			- The {} portion of this command represents the found filename, I believe
-			- Note that the semicolon after -exec needs to be escaped
-	- delete all found files: find . -name "*.txt" -delete
-  
-- for loop: 
-	for i in $(cat ~/Desktop/apps.txt | xargs);
-	# for i in cat man tail
-	do
-	<command>, e.g. echo $i
-	done
-	
-GREP:
-- extended regexp, -E
-	- (look for ');' at the end of each line): grep -E ");$" file.txt 
-- show line numbers: -n
-	grep -n "abc" file.txt
-- count instances: -c
-	grep -c "abc" file.txt
-- include/exclude file: --include or --exclude
-	grep --exclude "*.sql" "abc" file.sql
-	- include/exclude directory: --include-dir --exclude-dir
-	- NOTE: excludes TAKE PRECIDENCE OVER INCLUDES!!!
-- Don't search devices, FIFOs, sockets: -D skip
-	grep -R -D skip "abc" /
-- Don't print filename: -h
-- MULTIPLE PATTERNS!!! -e
-	grep -e "^abc.+" -e "^otherpattern.+" file.txt
-	- for multiple NOTs, use -ve for each:
-		grep -E -ve ";$" -ve "uigznaosy" -ve "--" -ve "^\s*$" -ve "^ALTER TABLE ONLY" -ve "\s+at org\.springframework" dev-core-db-dump-2-sep-2021.sql
-	- Positive match uses of -e function as OR's, not AND's:
-		grep -E -e "--" -e "^\s*$" -m 10 dev-core-db-dump-2-sep-2021.sql | grep -E -e "-- Dumped" -e "-- PostgreSQL database dump"
-			- this returns instances of lines with only ONE of the above final grep's -e pattern matched
-- Ignore binary files: -I
-- List only the names of files not containing selected lines: -L
-- List files with matches, only searching until first instance INSIDE THE FILE is found: -l 
-	- (lowercase L)
-	- i.e. still lists multiple files, in other words list every file that has at least one match
-- Max count/number of matches: -m
-- Only show matching part of line: -o 
-- Run silent, i.e. nonexistent or unreadable files ignored (messages suppressed): -s
-- Line regexp, Only input lines selected against an entire fixed string or regular expression are considered to be matching lines: -x
-- The expression is searched for as a word (as if surrounded by `[[:<:]]' and `[[:>:]]'; see re_format(7)): -w
-- Prints a zero-byte after the file name: --null
-  
-- copy file from user1 to user2 (user2 has elevated privileges):
-	- login as user1
-	- sudo su - user2
-	- <find file, do stuff with it, whatever>
-	- chmod 777 <file>
-	- mv <file> /tmp
-	- exit
-	- (still logged in as user1): cp /tmp/<file> ~/
-	- log back in as user2 and rm /tmp/<file>
-  
-- redirect all out to file: 2>&1
-- xargs parse using comma as end of line, then echo each arg: xargs -E ',' -n1 echo
-	- note: -E might just be the mac os cmd, for linux it might be -d
+CMD reference:
+
+- bash:
+	- arguments:
+		- last argument (from last command): !$
+		- nth argument (from last command): !:n
+			- e.g. !:2
+		- all n arguments: !:n-$
+			- e.g. !:3-$ for everything after the second word
+		- last arg of n commands ago: !-n:$
+			- e.g. !-4:$ for the last arg four commands ago
+		- strip filename off of folder: !$:h
+			- e.g. cd /etc/docker fails, then cd !$:h goes to /etc
+		- nth arg of current line: !#:n
+			- e.g. echo a b c !#:2 yields 'echo a b c b'
+
+	- find:
+		- execute command for each result: find /path/to/start -type f -name "*.plist" -exec sed -i -e 's/SEARCH/REPLACE/g' \;
+			- another example: find . -name "*.jar" -exec echo {} \;
+				- The {} portion of this command represents the found filename, I believe
+				- Note that the semicolon after -exec needs to be escaped
+		- delete all found files: find . -name "*.txt" -delete
+
+	- for loop: 
+		for i in $(cat ~/Desktop/apps.txt | xargs);
+		# for i in cat man tail
+		do
+		<command>, e.g. echo $i
+		done
+
+	- GREP:
+	- extended regexp, -E
+		- (look for ');' at the end of each line): grep -E ");$" file.txt 
+	- show line numbers: -n
+		grep -n "abc" file.txt
+	- count instances: -c
+		grep -c "abc" file.txt
+	- include/exclude file: --include or --exclude
+		grep --exclude "*.sql" "abc" file.sql
+		- include/exclude directory: --include-dir --exclude-dir
+		- NOTE: excludes TAKE PRECIDENCE OVER INCLUDES!!!
+	- Don't search devices, FIFOs, sockets: -D skip
+		grep -R -D skip "abc" /
+	- Don't print filename: -h
+	- MULTIPLE PATTERNS!!! -e
+		grep -e "^abc.+" -e "^otherpattern.+" file.txt
+		- for multiple NOTs, use -ve for each:
+			grep -E -ve ";$" -ve "uigznaosy" -ve "--" -ve "^\s*$" -ve "^ALTER TABLE ONLY" -ve "\s+at org\.springframework" dev-core-db-dump-2-sep-2021.sql
+		- Positive match uses of -e function as OR's, not AND's:
+			grep -E -e "--" -e "^\s*$" -m 10 dev-core-db-dump-2-sep-2021.sql | grep -E -e "-- Dumped" -e "-- PostgreSQL database dump"
+				- this returns instances of lines with only ONE of the above final grep's -e pattern matched
+	- Ignore binary files: -I
+	- List only the names of files not containing selected lines: -L
+	- List files with matches, only searching until first instance INSIDE THE FILE is found: -l 
+		- (lowercase L)
+		- i.e. still lists multiple files, in other words list every file that has at least one match
+	- Max count/number of matches: -m
+	- Only show matching part of line: -o 
+	- Run silent, i.e. nonexistent or unreadable files ignored (messages suppressed): -s
+	- Line regexp, Only input lines selected against an entire fixed string or regular expression are considered to be matching lines: -x
+	- The expression is searched for as a word (as if surrounded by `[[:<:]]' and `[[:>:]]'; see re_format(7)): -w
+	- Prints a zero-byte after the file name: --null
+
+	- copy file from user1 to user2 (user2 has elevated privileges):
+		- login as user1
+		- sudo su - user2
+		- <find file, do stuff with it, whatever>
+		- chmod 777 <file>
+		- mv <file> /tmp
+		- exit
+		- (still logged in as user1): cp /tmp/<file> ~/
+		- log back in as user2 and rm /tmp/<file>
+
+	- redirect all out to file: 2>&1
+	- xargs parse using comma as end of line, then echo each arg: xargs -E ',' -n1 echo
+		- note: -E might just be the mac os cmd, for linux it might be -d
   
 - scp:
 	- General: scp <local file> <host>:<remote location>
@@ -79,7 +81,8 @@ GREP:
 	- Specify SSH user: -o "User=<USER-HERE>", e.g. "User=matt.hess@octanner.com"
 		scp -o "User=<USER-HERE>@octanner.com" eclientlink2-21.06.01b-custom.war a-mile-app-port-1.qa.octanner.net:./
     
-- type: finds a program: type <command>, e.g. type java
+- type: 
+	- finds a program: type <command>, e.g. type java
 
 - lsof:
 	- find the process using a port: lsof -i :<port>
@@ -119,3 +122,13 @@ GREP:
   
 - CRON STRINGS:
 	- https://freeformatter.com/cron-expression-generator-quartz.html
+	
+- wget:
+	- continue download: wget --continue https://example.com/linux-distro.iso
+	- check short URL: wget --max-redirect 0 "https://bit.ly/2yDyS4T"
+	
+- curl:
+	- Another way to upload: cat <file> | curl -X PUT -v -H "Content-Type: <content-type>" --data-binary @- "uploadURL": "<url>"
+		- e.g: cat "Titillium-Light.otf" | curl -X PUT -v -H "Content-Type: font/otf" --data-binary @- "uploadURL": "https://fontproxy.io/0306342d-6d26-4f63-87bb-869af889b57d?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20211029T231906Z&X-Amz-SignedHeaders=content-type%3Bhost&X-Amz-Expires=300&X-Amz-Credential=AKIA4SVW6KK4RHD2ZBJS%2F20211029%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Signature=7f0dafff5d8e4360a984677cb5bc00a330cfc4227f7bf6bc673f8e80354184b0"
+	
+- hexdump: hexdump <file>
