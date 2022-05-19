@@ -1,0 +1,105 @@
+JAVA reference:
+
+- Debugging string: -agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=*:1044
+- Debug SSL issues: -Djavax.net.debug=ssl:record:plaintext
+- Use TLS: -Djdk.tls.client.protocols=TLSv1,TLSv1.1,TLSv1.2 (VM ARGUMENT)
+- JMX:
+	- https://docs.oracle.com/javadb/10.10.1.2/adminguide/radminjmxenabledisable.html
+	- https://docs.oracle.com/javase/7/docs/technotes/guides/management/agent.html#gdeum
+	- in docker: https://github.com/cstroe/java-jmx-in-docker-sample-app/blob/master/README.md
+- For implementing a stream: <...>.sorted(Comparator.comparing(new Function<stream target object, OBJECT TYPE TO COMPARE>() {...}))
+- Capturing heap dumps: 7 ways (https://blog.heaphero.io/2017/10/13/how-to-capture-java-heap-dumps-7-options/)
+- Read file:
+	  private static String readFromInputStream(InputStream inputStream) throws IOException {
+	    StringBuilder resultStringBuilder = new StringBuilder();
+	    try (BufferedReader br = new BufferedReader(new InputStreamReader(inputStream))) {
+	      String line;
+	      while ((line = br.readLine()) != null) {
+	        resultStringBuilder.append(line).append("\n");
+	      }
+	    }
+	    return resultStringBuilder.toString();
+	  }
+- run jstat:
+	- experimental :(
+	jstat -gcutil -h3 -t <pid> 250
+		- the -t adds a timestamp
+		- -h3 prints out column headers/names every three seconds
+		- 250 is the sampling rate (in milliseconds), i.e. one sample every 250 milliseconds
+	- -gcutil option column meanings:
+		- S0 	Survivor space 0 utilization as a percentage of the space's current capacity.
+		- S1 	Survivor space 1 utilization as a percentage of the space's current capacity.
+		- E 	Eden space utilization as a percentage of the space's current capacity.
+		- O 	Old space utilization as a percentage of the space's current capacity.
+		- M 	Metaspace utilization as a percentage of the space's current capacity.
+		- YGC 	Number of young generation GC events.
+		- YGCT 	Young generation garbage collection time.
+		- FGC 	Number of full GC events.
+		- FGCT 	Full garbage collection time.
+		- GCT 	Total garbage collection time.
+    
+- thread dumps: jstack
+	- experimental :(((
+	- jstack <pid> > threads.txt
+  
+- get all running java processes: jps
+	- experimental :(((
+	- jps <pid>
+  
+- jmap (jmap - print details of a specified process):
+	- experimental :(((
+	jmap -dump[:dump_options] <pid>
+	jmap -histo[:live]
+  
+- jconsole (a version of visualvm): graphical tool, can have some but usually not any cmd line args
+
+- jcmd (NOT experimental, hooray!!):
+	jcmd <pid> "GC.class_histogram"
+	jcmd <pid> "GC.heap_dump '/Users/matt.hess/Downloads/out.hprof'"
+	jcmd <pid> "GC.heap_info"
+	jcmd <pid> "GC.run"
+	jcmd <pid> "JFR.start"
+	jcmd <pid> "Thread.print"
+	jcmd <pid> "VM.classloader_stats"
+	jcmd <pid> "VM.class_hierarchy"
+	jcmd <pid> "VM.command_line"
+	jcmd <pid> "VM.info"
+	jcmd <pid> "VM.flags"
+	jcmd <pid> "VM.native_memory"
+	jcmd <pid> "VM.system_properties"
+  
+- javap: disassemble class files to view bytecode
+
+---------------------------------------------------------------------------------
+SPRING:
+- Parameterized type reference with use of RestTemplate: new ParameterizedTypeReference<List<ScheduledCelebrationAction>>() {};
+	val requestEntity = new HttpEntity<>(getHeaders());
+    val typeInstance = new ParameterizedTypeReference<List<ScheduledCelebrationAction>>() {};
+    val url =
+        UriComponentsBuilder.fromUriString(baseUrl)
+            .path("batchDetails/getDetailsForCelebration")
+            .queryParam("celebrationId", celebrationId)
+            .queryParam("assumedTime", Instant.now().toString())
+            .build()
+            .toUriString();
+
+    ResponseEntity<List<ScheduledCelebrationAction>> response =
+        restTemplate.exchange(url, HttpMethod.GET, requestEntity, typeInstance);
+    return response.getBody();
+- spring configures auto configurations AFTER custom, project configurations!!!
+- flyway schema history table name: flyway_schema_history
+
+---------------------------------------------------------------------------------
+MAVEN:
+- local repo: -Dmaven.repo.local=.m2/repository
+- Resume from param: -rf :<module>, e.g. ./mvn clean install -rf :BlockBrochure
+- Project list: -pl :<module>, e.g. mvn clean install -pl :BlockBrochure
+- Also make: -am, e.g. ./mvn clean install -pl :BlockBrochure -am
+	- "If project list is specified, also build projects required by the list"
+- help: mvn -h
+- fail at end: -fae 
+	- "allow all non-impacted builds to continue"
+- log file for build output: -l 
+- Errors and debug: -X -e
+- Debug maven build itself: mvnDebug
+	- will require attaching a debugger on port 8000
