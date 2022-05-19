@@ -1,0 +1,88 @@
+BASH:
+- arguments:
+	- last argument (from last command): !$
+	- nth argument (from last command): !:n
+		- e.g. !:2
+	- all n arguments: !:n-$
+		- e.g. !:3-$ for everything after the second word
+	- last arg of n commands ago: !-n:$
+		- e.g. !-4:$ for the last arg four commands ago
+	- strip filename off of folder: !$:h
+		- e.g. cd /etc/docker fails, then cd !$:h goes to /etc
+	- nth arg of current line: !#:n
+		- e.g. echo a b c !#:2 yields 'echo a b c b'
+    
+- find:
+	- execute command for each result: find /path/to/start -type f -name "*.plist" -exec sed -i -e 's/SEARCH/REPLACE/g' \;
+		- another example: find . -name "*.jar" -exec echo {} \;
+			- The {} portion of this command represents the found filename, I believe
+			- Note that the semicolon after -exec needs to be escaped
+	- delete all found files: find . -name "*.txt" -delete
+  
+- for loop: 
+	for i in $(cat ~/Desktop/apps.txt | xargs);
+	# for i in cat man tail
+	do
+	<command>, e.g. echo $i
+	done
+  
+- copy file from user1 to user2 (user2 has elevated privileges):
+	- login as user1
+	- sudo su - user2
+	- <find file, do stuff with it, whatever>
+	- chmod 777 <file>
+	- mv <file> /tmp
+	- exit
+	- (still logged in as user1): cp /tmp/<file> ~/
+	- log back in as user2 and rm /tmp/<file>
+  
+- redirect all out to file: 2>&1
+- xargs parse using comma as end of line, then echo each arg: xargs -E ',' -n1 echo
+	- note: -E might just be the mac os cmd, for linux it might be -d
+  
+- scp:
+	- General: scp <local file> <host>:<remote location>
+		- e.g. localfile.txt a-mile-app-port-1.qa.octanner.net:./
+	- Specify SSH user: -o "User=<USER-HERE>", e.g. "User=matt.hess@octanner.com"
+		scp -o "User=<USER-HERE>@octanner.com" eclientlink2-21.06.01b-custom.war a-mile-app-port-1.qa.octanner.net:./
+    
+- type: finds a program: type <command>, e.g. type java
+
+- lsof:
+	- find the process using a port: lsof -i :<port>
+		- e.g. lsof -i :8080
+	- find ALL the ports used by a single pid: lsof -i -P | grep <pid>
+		- e.g. lsof -i -P | grep 86859
+    
+- nl: number the lines in a file: nl <file>
+	- The -s option is for formatting, e.g. nl -s ".,formatme, " <file> yields line numbers of the form "1.,formatme, <line1>", "2.,formatme, <line2>", etc.
+	- format ALL lines (include blanks): -b a 
+		- e.g.: nl -b a <file>
+	- Only number lines matching expression: -p<expression>
+		- e.g.: 
+	- Start numbering at given number: -v<number>
+		- e.g.: nl -v 100 <filename>
+    
+- sed: global string replacement: sed -i -e 's/<PATTERN>/<REPLACEMENT>/g' <filename>
+	sed -i -e 's/);$/ /g' 1.sql
+	- e.g. replace all end of line ); with ),: sed -i -e 's/);$/),/g' 2.sql
+	- print to stdout instead of replacing file: remove the '-i' part, e.g. sed -e 's/PATTERN/REPLACE/g' hello.txt
+  
+- mkdir:
+	- check if directory already exists, and if not, create path to it: mkdir -p <path>
+		- e.g. mkdir -p /a/b/c/d if a and b both exist, c and d will both be created
+    
+- jot: print sequential or random chars to the screen? 
+	- e.g. jot -c 128 0
+  
+- echo: 
+	- use -n to not echo the newline
+	- use -e to use backslash chars?
+		- otherwise echo "\n" literally prints "\n", not outputs a new line
+	- see https://www.tecmint.com/echo-command-in-linux/ for details
+  
+- run process in background: <command> &
+	- e.g. echo "abc" &
+  
+- CRON STRINGS:
+	- https://freeformatter.com/cron-expression-generator-quartz.html
