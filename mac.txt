@@ -39,3 +39,7 @@ Un-minize window: cmd + tab, highlight app to unminimize, then up (or down) pick
 
 Sublime Text:
 - in find bar: opt + enter: select all instances
+
+mktemp:
+	- mktemp: makes a temporary file
+	- mktemp -d : makes a temporary directory
