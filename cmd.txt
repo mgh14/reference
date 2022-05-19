@@ -27,6 +27,11 @@ CMD reference:
 		do
 		<command>, e.g. echo $i
 		done
+		- also:
+			for (( i=1; i<=5; i++ ))
+			do
+				<command(s)>
+			done
 
 	- GREP:
 	- extended regexp, -E
@@ -74,6 +79,22 @@ CMD reference:
 	- redirect all out to file: 2>&1
 	- xargs parse using comma as end of line, then echo each arg: xargs -E ',' -n1 echo
 		- note: -E might just be the mac os cmd, for linux it might be -d
+		- Execute 'mv' for each file found: find ./ -name '<name pattern here>' -exec <comand here> \;
+		- e.g. find ./ -name '*article*' -exec mv {}  ../backup  \;
+			- note: {} represents a found filename
+		- OR find ./ -name '*article*' | xargs -I '{}' mv {} ../backup
+			- e.g. ls | find . -name "*.json" | xargs -I '{}' mv "{}-e" "{}"
+	- do-while loop: 
+		while true; do
+			<command(s)>
+			[[ <condition ]] | break 
+		done
+
+		- examples:
+			while true; do
+				du -h myfile.zip;
+				sleep 5;
+			done
   
 - scp:
 	- General: scp <local file> <host>:<remote location>
@@ -132,3 +153,16 @@ CMD reference:
 		- e.g: cat "Titillium-Light.otf" | curl -X PUT -v -H "Content-Type: font/otf" --data-binary @- "uploadURL": "https://fontproxy.io/0306342d-6d26-4f63-87bb-869af889b57d?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20211029T231906Z&X-Amz-SignedHeaders=content-type%3Bhost&X-Amz-Expires=300&X-Amz-Credential=AKIA4SVW6KK4RHD2ZBJS%2F20211029%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Signature=7f0dafff5d8e4360a984677cb5bc00a330cfc4227f7bf6bc673f8e80354184b0"
 	
 - hexdump: hexdump <file>
+
+- du: du <directory> 
+	- note: directory can be blank, i.e. `du`
+	- -sh: show total disk usage of current dir (in human-friendly format)
+	- -a: show disk usage of all files/folders in dir
+	- -m: counts everything in megabyte blocks
+	- exclusion: --exclude="*.txt"
+	
+- sleep:
+	- sleep <num-seconds>
+		- e.g. sleep 5
+			- sleeps for 5 seconds
+			- NOT milliseconds
