@@ -94,3 +94,6 @@ Inside commit window popup:
 
 Inside Settings popup:
 - settings -> keymap has a search by shortcut!! :D
+
+- Shift + click on file tab: closes tab
+- In spring boot application class:	ctrl + opt + d: run remote debug
