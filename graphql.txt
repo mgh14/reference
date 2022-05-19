@@ -1,0 +1,74 @@
+GraphQL:
+	- (named) mutation syntax, including fragments and variables:
+		mutation <mutation-name-here> {
+		  <published-graphql-operation-here>(input: $input) {
+		    ...<fragment name here>
+		    __typename
+		  }
+		} {
+			<requested-fields-here>
+		}
+
+		- variables:
+		{
+			"input": {
+				"prop1": "propValue",
+				"obj1": {
+					"innerProp1": "innerPropValue"
+				}
+			}
+		}
+
+		- format:
+			(fragment)
+
+		- example:
+			- mutation:
+				mutation patchConfig($input: YbCelebrationLevelGroupConfigUpdateInput!) {
+				  ybPatchCelebrationLevelGroupConfigs(input: $input) {
+				    ...YbCelebrationGroupConfig
+				    __typename
+				  }
+				}
+			- fragments:
+				fragment Identity on Identity {
+				  id
+				  firstName
+				  lastName
+				  preferredName
+				  email
+				  __typename
+				}
+
+				fragment YbCelebrationGroupConfig on YbCelebrationLevelGroupConfig {
+				  id
+				  name
+				  milestone
+				  yearbookEnabled
+				  printCoverType
+				  emptyYearbookEmailRecipientIdentity {
+				    ...Identity
+				    __typename
+				  }
+				  celebrationLevelConfigs {
+				    id
+				    rank
+				    name
+				    __typename
+				  }
+				  accrualPointsForServiceEnabled
+				  __typename
+				}
+			- variables:
+				{
+				  "input": {
+				    "config": {
+				      "celebrationLevelConfigs": [{"rank": 310, "name": "310 years, wow"}],
+				      "id": "d1beaa35-4556-4bcf-83d0-fc72f2f5b1f9",
+				      "name": "modified clg - mh",
+				      "milestone": false
+				      
+				    },
+				    "programId": "c5e50c70-6bd9-4ebf-b92c-0abc8ae493d8"
+				  }
+				}
