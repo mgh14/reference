@@ -113,6 +113,9 @@ SPRING:
 - Exclude auto configs from @SpringBootTest:
 	@EnableAutoConfiguration(exclude = GraphQLJavaToolsAutoConfiguration.class)
 
+- Spring actuator:
+	- -Dmanagement.endpoints.web.exposure.include=health,mappings -Dmanagement.endpoint.mappings.enabled=true
+	- also: https://docs.spring.io/spring-boot/docs/current/reference/html/actuator.html#actuator.endpoints.enabling
 ---------------------------------------------------------------------------------
 MAVEN:
 - local repo: -Dmaven.repo.local=.m2/repository
