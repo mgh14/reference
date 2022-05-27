@@ -141,3 +141,4 @@ MAVEN:
 - verion 3.6.1: add -ntp to skip all the "downloading" messages
 	- another way: 
 		RUN ./mvnw package --batch-mode -s settings.xml -DskipTests -Dmaven.test.skip=true -Djacoco.skip=true -Dpmd.skip -Dfmt.skip -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
+- Effective pom: mvn help:effective-pom
