@@ -32,3 +32,24 @@ POSTGRESQL reference:
 		   SELECT '{"top": 0, "left": 0, "color": {"hex": "black", "cmyk": "black"}, "width": 7, "border": {"top": {"color": {"hex": "black", "cmyk": "black"}, "style": "solid", "width": 0}, "left": {"color": {"hex": "black", "cmyk": "black"}, "style": "solid", "width": 0}, "right": {"color": {"hex": "black", "cmyk": "black"}, "style": "solid", "width": 0}, "bottom": {"color": {"hex": "black", "cmyk": "black"}, "style": "solid", "width": 0}}, "height": 7, "margin": {"top": 0, "left": 0, "right": 0, "bottom": 0}, "display": null, "padding": {"top": 0, "left": 0, "right": 0, "bottom": 0}, "flexGrow": 0, "fontSize": 12, "position": "absolute", "boxSizing": "border-box", "textAlign": "left", "flexShrink": 1, "fontFamily": "Gotham-Book", "lineHeight": "normal", "flexDirection": "row", "letterSpacing": "normal", "textTransform": "none", "backgroundColor": {"hex": "transparent", "cmyk": "transparent"}}'
 		      ::jsonb AS col)
 		select col, (col - 'display') from myjson_table WHERE col @> '{"display": null}';
+
+- Interval: <tsz> +/- INTERVAL '<timespan>'
+	- e.g. SELECT * FROM c WHERE c.created_tsz > (current_timestamp - interval '3 DAYS');
+- Between symmetric: SELECT a_tsz WHERE a_tsz BETWEEN SYMMETRIC lower_tsz AND higher_tsz;
+	
+- Create function:
+	CREATE OR REPLACE FUNCTION myschema.my_func
+	(
+		IN i_base_time	TIMESTAMPTZ,
+		IN i_offset 	INT
+	) RETURNS TIMESTAMPTZ AS
+	$BODY$
+	SELECT i_base_time + cast(i_offset || ' days' AS INTERVAL);
+	$BODY$
+	IMMUTABLE
+	STRICT
+	PARALLEL SAFE
+	COST 5
+	LANGUAGE SQL;
+	
+	COMMENT ON FUNCTION myschema.my_func IS 'comment on the function here'
