@@ -45,6 +45,7 @@ CMD reference:
 		- include/exclude directory: --include-dir --exclude-dir
 			- e.g. grep --exclude-dir={dir1,dir2,dir3} 
 		- NOTE: excludes TAKE PRECIDENCE OVER INCLUDES!!!
+		- https://stackoverflow.com/questions/6565471/how-can-i-exclude-directories-from-grep-r
 	- Don't search devices, FIFOs, sockets: -D skip
 		grep -R -D skip "abc" /
 	- Don't print filename: -h
