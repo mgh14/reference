@@ -64,3 +64,7 @@ POSTGRESQL reference:
 	LANGUAGE SQL;
 	
 	COMMENT ON FUNCTION myschema.my_func IS 'comment on the function here'
+
+- Casting: two ways: CAST(<val> AS <val type>) or <val>::<val type>
+	- SELECT (CAST('2022-06-14' AS DATE)) + interval '1 DAY'
+	- SELECT '2022-06-14'::DATE + interval '1 DAY'
