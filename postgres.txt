@@ -35,6 +35,8 @@ POSTGRESQL reference:
 
 - Interval: <tsz> +/- INTERVAL '<timespan>'
 	- e.g. SELECT * FROM c WHERE c.created_tsz > (current_timestamp - interval '3 DAYS');
+	- Another way to use: select date('2021-11-02') + interval '224 days'
+		- result: 2022-06-14 00:00:00.000
 - Between symmetric: SELECT a_tsz WHERE a_tsz BETWEEN SYMMETRIC lower_tsz AND higher_tsz;
 - MAKE_INTERVAL: SELECT MAKE_INTERVAL(days => mytable.my_value + CASE mytable.my_bool WHEN TRUE
 											THEN 0
