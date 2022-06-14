@@ -36,6 +36,15 @@ POSTGRESQL reference:
 - Interval: <tsz> +/- INTERVAL '<timespan>'
 	- e.g. SELECT * FROM c WHERE c.created_tsz > (current_timestamp - interval '3 DAYS');
 - Between symmetric: SELECT a_tsz WHERE a_tsz BETWEEN SYMMETRIC lower_tsz AND higher_tsz;
+- MAKE_INTERVAL: SELECT MAKE_INTERVAL(days => mytable.my_value + CASE mytable.my_bool WHEN TRUE
+											THEN 0
+										      ELSE +7
+										      END) FROM mytable;
+	- e.g. select MAKE_INTERVAL(days => 5 + CASE TRUE WHEN TRUE
+                                              THEN 10
+                                           ELSE -10
+                                 END - 25) AS result
+		- result: '0 years 0 mons -10 days 0 hours 0 mins 0.0 secs'
 	
 - Create function:
 	CREATE OR REPLACE FUNCTION myschema.my_func
