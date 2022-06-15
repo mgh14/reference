@@ -47,3 +47,12 @@ DOCKER reference:
 	- e.g. docker buildx build --no-cache --progress=plain -t content-api -f Dockerfile .
 - Use an environment file: --env-file <name>
 	- e.g. docker run --env-file 'myEnv.env' 01923809as09d
+- "Builder" dockerfile:
+	FROM openjdk:18 as builder
+	...
+	RUN ./gradlew clean build -x test
+
+	FROM openjdk:18
+	WORKDIR /app
+	COPY --from=builder /app/build/myjar.jar app.jar
+	CMD java $JAVA_OPTS $SPRING_OPTS -Dspring.profiles.active="$SPRING_PROFILES" -jar app.jar
