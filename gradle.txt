@@ -1,0 +1,18 @@
+GRADLE:
+
+- Skip tests: -x test
+
+BUILD FILE:
+- naming a jar:
+  jar {
+	  archivesBaseName = 'my-app-name-here'
+  }
+ 
+- exclude a dependency:
+  configurations {
+      implementation {
+          exclude group: 'org.mockito', module: 'mockito-junit-jupiter'
+      }
+  }
+
+
