@@ -12,7 +12,14 @@ POSTGRESQL reference:
     
 - Drop NOT NULL constraint:
 	alter table <table> alter column <column> drop not null;
-  
+- Set NOT NULL constraint:
+	ALTER TABLE <table> ALTER COLUMN <column> SET NOT NULL;
+
+- Updates (including populating a newly-created column):
+	UPDATE <table> t SET <column> = t.<other-column>;
+	- using value from another table: UPDATE join (but no 'join' keyword used)
+		UPDATE <table> t1 SET t1.<column> = t2.<column> + 5 FROM <table2> t2 WHERE t1.<foreign-key> = t2.<primary-key>;
+
 - Cheat sheet: https://www.educba.com/postgresql-cheat-sheet/
 
 - WITH <temp table name> AS (<sql here>) SELECT * FROM <table>
