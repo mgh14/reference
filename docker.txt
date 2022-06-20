@@ -56,3 +56,9 @@ DOCKER reference:
 	WORKDIR /app
 	COPY --from=builder /app/build/myjar.jar app.jar
 	CMD java $JAVA_OPTS $SPRING_OPTS -Dspring.profiles.active="$SPRING_PROFILES" -jar app.jar
+	
+- Export current container (with all changes) as tar, then import as an image:
+	- step 1: docker export <container ID> -o <tar filename>
+		- e.g. docker export e2b08d5ff214 -o ~/Downloads/my-app.tar
+	- step 2: docker import <tar filename> <tag:version>
+		- e.g. docker import ~/Downloads/my-app.tar my-app:v2.5
