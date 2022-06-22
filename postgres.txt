@@ -75,3 +75,8 @@ POSTGRESQL reference:
 - Casting: two ways: CAST(<val> AS <val type>) or <val>::<val type>
 	- SELECT (CAST('2022-06-14' AS DATE)) + interval '1 DAY'
 	- SELECT '2022-06-14'::DATE + interval '1 DAY'
+	
+- Rename column: ALTER TABLE <table> RENAME COLUMN <col> TO <new name>;
+	e.g. ALTER TABLE mine RENAME COLUMN my_col TO my_other_col;
+- Re-type column: ALTER TABLE <table> ALTER COLUMN <col> TYPE <new type>;
+	- e.g. ALTER TABLE mine ALTER COLUMN my_col TYPE VARCHAR(50);
