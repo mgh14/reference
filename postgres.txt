@@ -80,3 +80,23 @@ POSTGRESQL reference:
 	e.g. ALTER TABLE mine RENAME COLUMN my_col TO my_other_col;
 - Re-type column: ALTER TABLE <table> ALTER COLUMN <col> TYPE <new type>;
 	- e.g. ALTER TABLE mine ALTER COLUMN my_col TYPE VARCHAR(50);
+	
+- Long-running queries:
+	SELECT
+		pid,
+		now() - pg_stat_activity.query_start AS duration,
+		query,
+		state
+	FROM pg_stat_activity
+	WHERE (now() - pg_stat_activity.query_start) > interval '5 minutes';
+	
+	- see also: https://medium.com/little-programming-joys/finding-and-killing-long-running-queries-on-postgres-7c4f0449e86d
+
+- Stop a running query (like kill -9 !!!): SELECT pg_cancel_backend(__pid__);
+
+- Large tables/indexes:
+	SELECT relname, relpages
+	FROM pg_class
+	ORDER BY relpages DESC;
+	
+- Concurrency control: https://www.postgresql.org/docs/14/mvcc.html
