@@ -26,6 +26,9 @@ JAVA reference:
 	    }
 	    return resultStringBuilder.toString();
 	  }
+- Write file:
+	BufferedWriter writer = new BufferedWriter(new FileWriter("mydoc"));
+	writer.write(documentContent);
 - run jstat:
 	- experimental :(
 	jstat -gcutil -h3 -t <pid> 250
