@@ -118,6 +118,7 @@ SPRING:
 	- also: https://docs.spring.io/spring-boot/docs/current/reference/html/actuator.html#actuator.endpoints.enabling
 ---------------------------------------------------------------------------------
 MAVEN:
+- run specific test: -D<test-name>, e.g. -Dtest="MyUnitTestClass" OR e.g. -Dtest="MyUnitTestclass#myUnitTestMethod"
 - local repo: -Dmaven.repo.local=.m2/repository
 - Resume from param: -rf :<module>, e.g. ./mvn clean install -rf :BlockBrochure
 - Project list: -pl :<module>, e.g. mvn clean install -pl :BlockBrochure
