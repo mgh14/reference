@@ -1,0 +1,193 @@
+ASSERT4J CHEAT SHEET:
+(Reference: https://assertj.github.io/doc/#assertj-core)
+                                         
+Time:
+  - Within a range of acceptable values:
+    var timeMarker = OffsetDateTime.now();
+    Assertions.assertThat(result.getExpiresAt())    // getExpiresAt() returns an OffsetDateTime object
+        .isCloseTo(
+            timeMarker.plusSeconds(30),
+            new TemporalUnitLessThanOffset(1, ChronoUnit.SECONDS));
+  - Has year, month, day:
+    assertThat(LocalDate.of(2000, 12, 31)).hasYear(2000)
+                                        .hasMonth(Month.DECEMBER)
+                                        .hasMonthValue(12)
+                                        .hasDayOfMonth(31);
+       
+       
+Iterables:
+  - Filtering:
+    assertThat(fellowshipOfTheRing).filteredOn("race", not(HOBBIT))
+                               .containsOnly(gandalf, boromir, aragorn, gimli, legolas);
+  - Nested properties:
+    assertThat(fellowshipOfTheRing).extracting("race.name")
+                               .contains("Man", "Maia", "Hobbit", "Elf");
+
+  - Extracting multiple values at once grouped in tuples:
+    assertThat(fellowshipOfTheRing).extracting("name", "age", "race.name")
+                                   .contains(tuple("Boromir", 37, "Man"),
+                                             tuple("Sam", 38, "Hobbit"),
+                                             tuple("Legolas", 1000, "Elf"));
+
+  - Flat map:
+    assertThat(reallyGoodPlayers).flatMap(BasketBallPlayer::getTeamMates)
+                             .contains(pippen, kukoc, jabbar, worthy);
+                             
+  - Map:
+    assertThat(map).extractingByKey("name", as(InstanceOfAssertFactories.STRING))
+               .startsWith("kaw");
+  
+  - Recursive:               
+  assertThat(sherlock1).usingRecursiveComparison()
+                     .ignoringCollectionOrder()
+                     .isEqualTo(sherlock2);
+
+Range:
+  - Various range assertions:
+    Range<Integer> range = Range.closed(10, 12);
+    assertThat(range).isNotEmpty()
+                     .contains(10, 11, 12)
+                     .hasClosedLowerBound()
+                     .hasLowerEndpointEqualTo(10)
+                     .hasUpperEndpointEqualTo(12);
+                           
+Exceptions:                         
+  - Common exception types:
+    - catchIOException: IOException iOException = catchIOException(() -> {throw new IOException("boom!");});
+    - catchException
+    - catchIllegalStateException
+    - catchNullPointerException
+    - catchRuntimeException
+  
+  - No exception thrown:
+    assertThatNoException().isThrownBy(() -> System.out.println("OK"));
+    // OR 
+    thenNoException().isThrownBy(() -> System.out.println("OK"));
+  
+  - Stack trace:
+    assertThat(throwableWithMessage).hasMessageStartingWith("%s a", "wrong")
+                                .hasMessageContaining("wrong %s", "amount")
+                                .hasMessageEndingWith("%s 123", "amount")
+                                .hasStackTraceContaining("%s amount", "wrong");
+                    
+Soft assertions:
+  void basic_soft_assertions_example() {
+    SoftAssertions softly = new SoftAssertions(); 
+
+    softly.assertThat("George Martin").as("great authors").isEqualTo("JRR Tolkien");  
+    softly.assertThat(42).as("response to Everything").isGreaterThan(100); 
+    softly.assertThat("Gandalf").isEqualTo("Sauron"); 
+
+    // Don't forget to call assertAll() otherwise no assertion errors are reported!
+    softly.assertAll(); 
+  }
+  
+Assumptions:
+  @Test
+  public void when_an_assumption_is_not_met_the_test_is_ignored() {
+    // since this assumption is obviously false ...
+    assumeThat(frodo.getRace()).isEqualTo(ORC);
+    // ... this assertion is not performed
+    assertThat(fellowshipOfTheRing).contains(sauron);
+  }
+  
+  @Test
+  public void when_all_assumptions_are_met_the_test_is_run_normally() {
+    // since this assumption is true ...
+    assumeThat(frodo.getRace()).isEqualTo(HOBBIT);
+    // ... this assertion is performed
+    assertThat(fellowshipOfTheRing).doesNotContain(sauron);
+  }
+  
+Files:
+  - binary content: assertThat(file).hasBinaryContent(new byte[] {1, 1});
+
+  - filepath extension: 
+      var path = Paths.get("file.java");
+      assertThat(path).hasExtension("java");
+
+  - assertThat(withoutContent).isEmptyFile();
+  
+  - assertThat(root).isDirectoryRecursivelyContaining("glob:**foo")
+                .isDirectoryRecursivelyContaining("glob:**ooba*")
+
+Strings:
+  - Whitespace:
+    assertThat("Gandalf the grey").containsIgnoringWhitespaces("alf")
+                              .containsIgnoringWhitespaces("alf", "grey")
+                              .containsIgnoringWhitespaces("thegrey")
+                              .containsIgnoringWhitespaces("thegr  ey")
+                              .containsIgnoringWhitespaces("t h e g r\t\r\n ey");
+
+  - Not contains: 
+    AssertThat(throwableWithMessage).hasMessageNotContainingAny("foo", "amount");
+                              
+Completable futures:
+  - Completes exceptionally: 
+    assertThat(future).isCompletedExceptionally()
+                    .isNotCancelled();
+                    
+  - Succeeds/fails within time:
+    - assertThat(future).failsWithin(1, TimeUnit.SECONDS)
+                    .withThrowableOfType(RuntimeException.class)
+                    .withMessage("boom!");
+
+    - assertThat(future).succeedsWithin(timeout, as(InstanceOfAssertFactories.STRING))
+                    .contains("ok");
+                  
+Punctuation:
+  - Normalize punctuation, whitespace: use assertThat(...).isEqualToNormalizingPunctuationAndWhitespace(...) 
+    - assertThat("Game of Throne's").isEqualToNormalizingPunctuationAndWhitespace("Game of Thrones")
+
+    - assertThat(":Game of Thrones:").isEqualToNormalizingPunctuationAndWhitespace("Game of Thrones")
+
+    - assertThat("Game of Thrones?").isEqualToNormalizingPunctuationAndWhitespace("Game of Thrones")
+
+    - assertThat("Game of Thrones!!!").isEqualToNormalizingPunctuationAndWhitespace("Game of Thrones")
+
+    - assertThat("Game of  {{(!)}}    Thrones!!!").isEqualToNormalizingPunctuationAndWhitespace("Game of Thrones")
+
+    - assertThat("{(Game)-(of)-(Thrones)!!!}").isEqualToNormalizingPunctuationAndWhitespace("GameofThrones");
+
+Encode/decode:
+  - Base64:
+    // assertions succeeds
+    assertThat("QXNzZXJ0Sg==").decodedAsBase64()
+                              .containsExactly("AssertJ".getBytes());
+
+    // assertion succeeds even without padding as it is optional by specification
+    assertThat("QXNzZXJ0Sg").decodedAsBase64()
+                            .containsExactly("AssertJ".getBytes());
+
+    // assertion fails as it has invalid Base64 characters
+    assertThat("inv@lid").decodedAsBase64();
+  
+  - Hex:
+    byte[] bytes = new byte[] { -1, 0, 1 };
+
+    // assertion will pass
+    assertThat(bytes).asHexString()
+                     .startsWith("FF")
+                     .isEqualTo("FF0001");
+                     
+Classes:
+  - Superclass:
+    - assertThat(Integer.class).hasSuperclass(Number.class);
+
+    - assertThat(Cloneable.class).hasNoSuperclass();
+
+  - Compare by field:
+    assertThat(sherlock).usingRecursiveComparison()
+                  .ignoringFields("name", "home.address.street")
+                  .isEqualTo(moriarty);
+
+Compound assertions (allOf, anyOf):
+  assertThat("Gandalf").has(anyOf(contains("i"),
+                                  allOf(contains("o"),
+                                        anyOf(contains("a"),
+                                              contains("b"),
+                                              contains("c")))));
+                  
+Assert4j config:
+  - Print only up to 4 elements of an iterable: 
+    Assertions.setMaxElementsForPrinting(4);
