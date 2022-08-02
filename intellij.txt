@@ -53,6 +53,8 @@ From Editor:
 	- ctrl + shift + space TWICE: "looks further afield" to find anything matching completion
 - ctrl + shift + p ONCE: see what the type of something is
 	- crtl + shift + p TWICE: see what the value of something (like a primitive long or object reference) can be
+- reload maven dependencies: ctrl + opt + cmd + space
+- on a file tab, cmd + click: asks you if you want to see it in finder
 
 From any tool window:
 - F12: return to previous tool window
