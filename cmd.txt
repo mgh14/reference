@@ -21,6 +21,19 @@ CMD reference:
 				- Note that the semicolon after -exec needs to be escaped
 		- delete all found files: find . -name "*.txt" -delete
 
+	- if:
+		if [ ! -z "$MYVAR1" ] && [ ! -z "$MYVAR2"]; then
+		<command1>
+		elif
+		<command2>
+		elif
+		<command3>
+		else
+		<command4>
+		fi
+	
+		if [ ! -z "$MYVAR1" ] && [ "$ENABLED" == "true" ]; then echo "yep"; else echo "no"; fi
+
 	- for loop: 
 		for i in $(cat ~/Desktop/apps.txt | xargs);
 		# for i in cat man tail
