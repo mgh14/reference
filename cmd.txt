@@ -164,8 +164,10 @@ CMD reference:
 	- check short URL: wget --max-redirect 0 "https://bit.ly/2yDyS4T"
 	
 - curl:
+	- data-binary upload: curl -X POST --data-binary "@<filename-here>" <url-here>
+		- e.g.: curl -X PUT --data-binary "@image2.jpg" "https://mydomain.com/upload"
 	- Another way to upload: cat <file> | curl -X PUT -v -H "Content-Type: <content-type>" --data-binary @- "uploadURL": "<url>"
-		- e.g: cat "Titillium-Light.otf" | curl -X PUT -v -H "Content-Type: font/otf" --data-binary @- "uploadURL": "https://fontproxy.io/0306342d-6d26-4f63-87bb-869af889b57d?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20211029T231906Z&X-Amz-SignedHeaders=content-type%3Bhost&X-Amz-Expires=300&X-Amz-Credential=AKIA4SVW6KK4RHD2ZBJS%2F20211029%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Signature=7f0dafff5d8e4360a984677cb5bc00a330cfc4227f7bf6bc673f8e80354184b0"
+		- e.g.: cat "Titillium-Light.otf" | curl -X PUT -v -H "Content-Type: font/otf" --data-binary @- "uploadURL": "https://fontproxy.io/0306342d-6d26-4f63-87bb-869af889b57d?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20211029T231906Z&X-Amz-SignedHeaders=content-type%3Bhost&X-Amz-Expires=300&X-Amz-Credential=AKIA4SVW6KK4RHD2ZBJS%2F20211029%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Signature=7f0dafff5d8e4360a984677cb5bc00a330cfc4227f7bf6bc673f8e80354184b0"
 	
 - hexdump: hexdump <file>
 
