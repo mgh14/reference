@@ -78,6 +78,7 @@ JAVA reference:
 	jcmd <pid> "VM.system_properties"
   
 - javap: disassemble class files to view bytecode
+	- usage: javap [-v] path/to/classfile.class
 
 - the duration of a Minor GC is reliant not on the size of the heap, but on the number of objects that survive the collection. That means that for applications that mostly create short-lived objects, increasing the size of the young generation can actually reduce both GC duration and frequency. However, if increasing the size of the young generation will lead to a significant increase in objects needing to be copied in survivor spaces, GC pauses will take longer leading to increased latency.
 
