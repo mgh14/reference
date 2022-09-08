@@ -183,3 +183,7 @@ CMD reference:
 		- e.g. sleep 5
 			- sleeps for 5 seconds
 			- NOT milliseconds
+			
+- ln (symlinks): ln [-s] /path/to/original /path/to/link
+	- Use -s for soft/standard
+	- Soft links don't work anymore if the original file gets moved
