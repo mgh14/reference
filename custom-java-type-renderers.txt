@@ -1,0 +1,54 @@
+Custom Java Type Renderers (28 Sep 2022):
+---------------
+
+Matts_MapVals:
+type: java.util.AbstractMap
+type/object id: true
+rendering: 
+	default
+expanding:
+	list:
+		Name: CUST_myEntries;	EXPRESSION: this.entrySet();	ON-DEMAND: false
+
+
+Matts_LastTenBytesArray:
+type: byte[]
+type/object id: true
+rendering:
+	node expression: "(" + (this.length - 10) + " elements ...), " + Arrays.toString(Arrays.copyOfRange(this, this.length - 10, this.length)).substring(1)
+
+
+Matts_ClassConstructorPair:
+type: com.swirlds.common.constructable.ClassConstructorPair
+rendering:
+	type/object id: true
+	node expression: this.getConstructableClass().getName()
+expanding:
+	default
+
+---------------
+
+TEMPLATE:
+Matts_ :
+type:
+rendering:
+	type/object id: true
+	node expression: 
+expanding:
+	node expression:
+	list:
+		NAME: ;		EXPRESSION: ;		ON-DEMAND: ;
+
+---------------
+
+Some failed examples:
+this.values().stream().map(a->a.aClass).map(a->a.toString()).collect(Collectors.joining(", "))
+
+this.values().stream().map((ClassConstructorPair)a->a.getClass()).map(a->a.toString()).collect(Collectors.joining(", "))
+this.values().stream().map(a->a.getClass()).collect(Collectors.joining(","))
+((Collection< ClassConstructorPair>)this.values).toString()
+
+map.values().iterator().next().getConstructableClass().getName()
+((ClassConstructorPair) this.values().iterator().next()).getConstructableClass().toString()
+((String)((ClassConstructorPair) this.values().iterator().next()).getConstructableClass())
+((Class<?>)((ClassConstructorPair) this.values().iterator().next()).getConstructableClass()).toString()
