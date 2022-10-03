@@ -44,4 +44,5 @@ mktemp:
 	- mktemp: makes a temporary file
 	- mktemp -d : makes a temporary directory
 
+Dock:
 opt + cmd + click on dock item: hide everything else (e.g. opt + cmd + click on 'Sublime' hides everything but the Sublime windows)
