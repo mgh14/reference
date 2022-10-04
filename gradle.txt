@@ -1,6 +1,7 @@
 GRADLE:
 
-- Skip tests: -x test
+- Skip tests (and other things, like linting): -x test
+	- e.g.: ./gradlew build -x test -x pmd -x lint
 
 BUILD FILE:
 - naming a jar:
@@ -15,4 +16,11 @@ BUILD FILE:
       }
   }
 
+* Tasks:
+- disable a task:	<taskname>.enabled = false
+	e.g.: tasks.jar.enabled = false
+
+- only run a task if (condition): <task>.onlyIf { <condition> }
+	e.g.: myTask.onlyIf { !project.hasProperty('skipMyTask') }
+	- can also use <task>.doFirst { throw new StopExecutionException() } (?)
 
