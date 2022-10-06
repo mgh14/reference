@@ -94,6 +94,8 @@ JAVA reference:
 	
 - Reflection:
 	- get a field's value: AnyClass.class.getField("fieldName").get(null);
+	
+- Get input arguments outside of main(): ManagementFactory.getRuntimeMXBean().getInputArguments();
 
 ---------------------------------------------------------------------------------
 SPRING:
