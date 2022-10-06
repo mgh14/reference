@@ -91,6 +91,9 @@ JAVA reference:
 	- e.g.: jar xf MyJar.jar
 	- e.g.: jar xf MyJar.java JavaFileInJar.java TxtFileInJar.txt
 	- Use an unzip utility (a jar is a zipped file)
+	
+- Reflection:
+	- get a field's value: AnyClass.class.getField("fieldName").get(null);
 
 ---------------------------------------------------------------------------------
 SPRING:
