@@ -92,6 +92,8 @@ CMD reference:
 		- log back in as user2 and rm /tmp/<file>
 
 	- redirect all out to file: 2>&1
+		- append (as opposed to redirect/overwrite): >>
+			E.g.: cat file1.txt >> file2.txt
 	- xargs parse using comma as end of line, then echo each arg: xargs -E ',' -n1 echo
 		- note: -E might just be the mac os cmd, for linux it might be -d
 		- Execute 'mv' for each file found: find ./ -name '<name pattern here>' -exec <comand here> \;
