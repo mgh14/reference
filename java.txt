@@ -97,6 +97,10 @@ JAVA reference:
 	
 - Get input arguments outside of main(): ManagementFactory.getRuntimeMXBean().getInputArguments();
 
+- Get file system separator:
+	- io package: File.separator
+	- nio package: FileSystems.getDefault().getSeparator()
+
 ---------------------------------------------------------------------------------
 SPRING:
 - Parameterized type reference with use of RestTemplate: new ParameterizedTypeReference<List<ScheduledCelebrationAction>>() {};
