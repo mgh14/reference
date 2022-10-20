@@ -161,3 +161,16 @@ MAVEN:
 	- another way: 
 		RUN ./mvnw package --batch-mode -s settings.xml -DskipTests -Dmaven.test.skip=true -Djacoco.skip=true -Dpmd.skip -Dfmt.skip -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
 - Effective pom: mvn help:effective-pom -Doutput=out.log -Dverbose=true
+- Identify unneeded dependencies: `mvn dependency:analyze -DignoreNonCompile`
+---------------------------------------------------------------------------------
+JUNIT:
+- Parameterized test example:
+    @CsvSource({
+        "string1.1,string2.1",
+        "string1.2,string2,2",
+        "-2,Argument literal='-2' is not a valid range literal",
+        "123-,Argument literal='123-' is not a valid range literal"
+    })
+    @ParameterizedTest
+    void rejectsInvalidRanges(String literal, String iaeMsg) {
+    }
