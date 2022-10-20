@@ -9,3 +9,11 @@ GIT reference:
 	- custom pretty format: git log -3 --pretty=format:"%h"
 	
 - use "git restore <file>" to discard changes in working directory
+
+- Tag a commit:
+	- checkout the branch, e.g. `git checkout develop`
+	- `git tag -s <version>`
+		- e.g. `git tag -s '0.32.0-alpha.0'`
+		- the `-s` is to sign the tag
+	- `git push origin <version>`
+		- e.g. `git push origin '0.32.0-alpha.0'`
