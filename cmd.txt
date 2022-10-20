@@ -112,7 +112,79 @@ CMD reference:
 				du -h myfile.zip;
 				sleep 5;
 			done
-  
+	- Arg processing:
+		for arg in "$@"
+		do
+		    case $arg in
+			-i|--initialize)
+			SHOULD_INITIALIZE=1
+			shift # Remove --initialize from processing
+			;;
+			-c=*|--cache=*)
+			CACHE_DIRECTORY="${arg#*=}"
+			shift # Remove --cache= from processing
+			;;
+			-r|--root)
+			ROOT_DIRECTORY="$2"
+			shift # Remove argument name from processing
+			shift # Remove argument value from processing
+			;;
+			*)
+			OTHER_ARGUMENTS+=("$1")
+			shift # Remove generic argument from processing
+			;;
+		    esac
+		done
+	- Incrementing a variable:
+		- method 1:
+			i=$((i+1))
+			((i=i+1))
+		- method 2:
+			let "i=i+1"
+		- method 3:
+  			i=0
+			until [ $i -gt 3 ]
+			do
+			  echo i: $i
+			  ((i=i+1))
+			done
+	- Generate a random number (https://linuxhint.com/generate-random-number-bash/):
+		- /dev/urandom: `od -A n -t d -N 1 /dev/urandom`
+			- generates a number between 0 and 255
+		- echo $RANDOM
+			- generates a number between 0 and 32767
+		- echo $(( $RANDOM % <range high> + <range low> ))
+			- e.g. `echo $(( $RANDOM % 40 + 10 ))`
+				- generates a number between 10 (range low) and 40 (range high)
+	- Get the directory of a file:
+		- file=/path/to/file.txt
+		- echo ${file%/*}
+	- Resolve relative paths (like ./ and ../): $(readlink -f <path>)
+		- e.g. `echo $(readlink -f '../../../././my-directory/./my-file.txt')`
+		- e.g. `echo $(readlink -f '../../')`
+	- String comparisons (https://linuxize.com/post/how-to-compare-strings-in-bash/):
+		- exact matches: `if [[ <my var> == "<my value>" ]]; then echo "yep" fi
+			- e.g.:
+				`string="my string"`
+				`if [[ $string == "my string2" ]]; then echo "found"; else echo "nope"; fi`
+					- outputs `nope`
+		- wildcard matches: `[[ <my var> == *"<my value>"* ]]`
+			- e.g.: 
+				`if [[ $string == *" str"* ]]; then echo "found"; else echo "nope"; fi`
+					- outputs `found`
+				`if [[ $string == *" string" ]]; then echo "found"; else echo "nope"; fi`
+					- outputs `found`
+				`if [[ $string == " string"* ]]; then echo "found"; else echo "nope"; fi`
+					- outputs `nope` because no wildcard char is at the front of `" string"*`
+		- regex matches: `[[ <my var> =~ "<my value>" ]]`
+			- e.g.:
+				`if [[ $string =~ "[A-Za-z ]+ string" ]]; then echo "found"; else echo "nope"; fi`
+					- outputs `found`
+				`if [[ $string =~ "my stri{2,}ng" ]]; then echo "found"; else echo "nope"; fi`
+					- outputs `nope` because there aren't 2 or more 'i' chars in 'string'
+				
+				
+			
 - scp:
 	- General: scp <local file> <host>:<remote location>
 		- e.g. localfile.txt a-mile-app-port-1.qa.octanner.net:./
