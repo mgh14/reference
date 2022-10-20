@@ -24,3 +24,8 @@ BUILD FILE:
 	e.g.: myTask.onlyIf { !project.hasProperty('skipMyTask') }
 	- can also use <task>.doFirst { throw new StopExecutionException() } (?)
 
+- find unused dependencies (in build.gradle file):
+	plugins {
+		id "nebula.lint" version "17.7.0"
+	}
+	- command: `gradle lintGradle -PgradleLint.rules=unused-dependency`
