@@ -17,3 +17,5 @@ GIT reference:
 		- the `-s` is to sign the tag
 	- `git push origin <version>`
 		- e.g. `git push origin '0.32.0-alpha.0'`
+	- untag: git push origin :<version>
+		- e.g. `git push origin :1.1`
