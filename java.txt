@@ -108,6 +108,11 @@ JAVA reference:
 	- Locale.getISO3Code("", "")
 	- Locale.getISOCountries()
 	- Locale.IsoCountryData
+	
+- KeyPairGenerator:
+	KeyPairGenerator kpg = KeyPairGenerator.getInstance("Ed25519");
+	KeyPair kp = kpg.generateKeyPair();
+	new String(Hex.encode(kp.getPrivate().getEncoded()))
 
 ---------------------------------------------------------------------------------
 SPRING:
