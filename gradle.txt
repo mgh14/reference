@@ -2,6 +2,30 @@ GRADLE:
 
 - Skip tests (and other things, like linting): -x test
 	- e.g.: ./gradlew build -x test -x pmd -x lint
+	
+DEPENDENCIES:
+- find unused dependencies (in build.gradle file):
+	plugins {
+		id "nebula.lint" version "17.7.0"
+	}
+	- command: `gradle lintGradle -PgradleLint.rules=unused-dependency`
+	
+- exclude a dependency:
+  configurations {
+      implementation {
+          exclude group: 'org.mockito', module: 'mockito-junit-jupiter'
+      }
+  }
+  
+- see all dependencies of a project (does NOT grab subprojects in the folder!):
+	- `./gradlew dependencies --configuration < runtimeClasspath | implementation | compileClasspath | (etc…) >
+		- e.g. `./gradlew dependencies --configuration runtimeClasspath`
+		
+- dependency report:
+	plugins {
+    		id 'project-report'
+	}
+	- command: `gradle dependencyReport` (or `htmlDependencyReport`)
 
 BUILD FILE:
 - naming a jar:
@@ -9,23 +33,11 @@ BUILD FILE:
 	  archivesBaseName = 'my-app-name-here'
   }
  
-- exclude a dependency:
-  configurations {
-      implementation {
-          exclude group: 'org.mockito', module: 'mockito-junit-jupiter'
-      }
-  }
-
-* Tasks:
+TASKS:
 - disable a task:	<taskname>.enabled = false
 	e.g.: tasks.jar.enabled = false
 
 - only run a task if (condition): <task>.onlyIf { <condition> }
 	e.g.: myTask.onlyIf { !project.hasProperty('skipMyTask') }
 	- can also use <task>.doFirst { throw new StopExecutionException() } (?)
-
-- find unused dependencies (in build.gradle file):
-	plugins {
-		id "nebula.lint" version "17.7.0"
-	}
-	- command: `gradle lintGradle -PgradleLint.rules=unused-dependency`
+	
