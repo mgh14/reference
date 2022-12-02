@@ -261,3 +261,10 @@ CMD reference:
 - ln (symlinks): ln [-s] /path/to/original /path/to/link
 	- Use -s for soft/standard
 	- Soft links don't work anymore if the original file gets moved
+
+- gpg:
+	- the `-v`, `--debug`, and `--debug-all` options
+	- list keys: `gpg --list-keys`
+		- private keys: `gpg --list-secret-keys`
+	- the `--dry-run` option will simulate what happens
+	- home dir is `$HOME/.gnupg`
