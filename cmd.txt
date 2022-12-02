@@ -268,3 +268,7 @@ CMD reference:
 		- private keys: `gpg --list-secret-keys`
 	- the `--dry-run` option will simulate what happens
 	- home dir is `$HOME/.gnupg`
+
+- ssh-keygen:
+	- Generate a key: `ssh-keygen -t ed25519 -f "$HOME/Downloads/id_ed25519" -m [ PEM | PKCS8 | RFC4716 ]`
+		
