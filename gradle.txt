@@ -2,6 +2,14 @@ GRADLE:
 
 - Skip tests (and other things, like linting): -x test
 	- e.g.: ./gradlew build -x test -x pmd -x lint
+- Run without caching:
+	- delete `$HOME/.gradle`
+	- Run `./gradlew --no-daemon no-configuration-cache --no-build-cache <task>`, e.g. `./gradlew --no-daemon --no-build-cache assemble`
+	- others: --no-parallel, no-scan, no-watch-fs
+- Run in debug: `--debug` or `-d`
+	- e.g.: `./gradlew build --debug`
+	- another param for more output: --console [plain | auto | rich | verbose]
+- Run with tasks disabled/dry-run: `--dry-run` or `-m`
 	
 DEPENDENCIES:
 - find unused dependencies (in build.gradle file):
@@ -26,6 +34,16 @@ DEPENDENCIES:
     		id 'project-report'
 	}
 	- command: `gradle dependencyReport` (or `htmlDependencyReport`)
+	
+- configure a subproject that can't find another subproject's tasks:
+	- first:
+	configurations {
+	    evaluationDependsOn(":subproject1:subproject2")
+	}
+	- then add: 
+	tasks.shadowJar {
+		dependsOn(project(":project1:project2").tasks.jar) // or whatever other task besides 'jar' 
+	}
 
 BUILD FILE:
 - naming a jar:
@@ -40,4 +58,9 @@ TASKS:
 - only run a task if (condition): <task>.onlyIf { <condition> }
 	e.g.: myTask.onlyIf { !project.hasProperty('skipMyTask') }
 	- can also use <task>.doFirst { throw new StopExecutionException() } (?)
+	
+- Make a task depend on another:
+	tasks.jar {
+		dependsOn(project(":subproject1:subproject2").tasks.jar)
+	}
 	
