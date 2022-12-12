@@ -1,0 +1,14 @@
+VIM
+
+Turn on syntax highlighting: `:syntax on`
+
+Turn on line numbers: `:set number`
+  - Turn off: `:set nonumber`
+  - Relative numbers: `:set relativenumber`
+
+Delete from line to line: `:<line #>,<line #>d`
+  - e.g. `:1,25d`
+  - Also works with regex:
+    - e.g. `:^,$d` (entire contents)
+    
+ 
