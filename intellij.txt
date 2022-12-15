@@ -55,6 +55,7 @@ From Editor:
 	- crtl + shift + p TWICE: see what the value of something (like a primitive long or object reference) can be
 - reload maven dependencies: ctrl + opt + cmd + space
 - on a file tab, cmd + click: asks you if you want to see it in finder
+- cmd + opt + t: surround with :)
 
 From any tool window:
 - F12: return to previous tool window
