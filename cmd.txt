@@ -135,6 +135,11 @@ CMD reference:
 			;;
 		    esac
 		done
+	- Return code of previous command: $?
+		true
+		echo $? # echoes 0
+		false
+		echo $? # echoes 1
 	- Incrementing a variable:
 		- method 1:
 			i=$((i+1))
@@ -182,7 +187,26 @@ CMD reference:
 					- outputs `found`
 				`if [[ $string =~ "my stri{2,}ng" ]]; then echo "found"; else echo "nope"; fi`
 					- outputs `nope` because there aren't 2 or more 'i' chars in 'string'
-				
+	- To go back to the previous working directory: `cd -`					
+	- See who's logged in: w
+	- Add line numbers to input/file: nl
+		- e.g. `w | nl`
+	- Permissions in octal form: `stat -c '%A %a %n' <file>`
+	- Tabs to spaces (or vice versa): expand or unexpand
+		- e.g. `echo "a\tb" | unexpand` yields `a	b`
+	- For binary files, `strings` (plus grep, etc.) lets you find bits of text
+	- The output of a command can be treated like a file via <(some command) (known as process substitution).
+	    	- e.g. `diff /etc/hosts <(ssh somehost cat /etc/hosts)`
+	- Folding text: use `fold`
+		- e.g. `echo "abcdefgijalskdjfabcdefgijalskdjfabcdefgijalskdjfabcdefgijalskdjfabcdefgijalskdjfabcdefgijalskdjfabcdefgijalskdjfabcdefgijalskdjfabcdefgijalskdjfabcdefgijalskdjfiqqiowueroiqwupeoriuqpweoiruqpwoeietupweroirtupwoeirutpoiqweuprioquweptoriuqtrepoiuqpiorupwoiertupweoirtupwoieruptuwoierupotiwure" | fold`
+			- result:
+				abcdefgijalskdjfabcdefgijalskdjfabcdefgijalskdjfabcdefgijalskdjfabcdefgijalskdjf
+				abcdefgijalskdjfabcdefgijalskdjfabcdefgijalskdjfabcdefgijalskdjfabcdefgijalskdjf
+				iqqiowueroiqwupeoriuqpweoiruqpwoeietupweroirtupwoeirutpoiqweuprioquweptoriuqtrep
+				oiuqpiorupwoiertupweoirtupwoieruptuwoierupotiwure
+	- Do something in different directory: `(cd <different dir> && <cmd>)`
+		- e.g. `(cd ~.git && ls)`
+			- Note: still in the original directory after executing
 				
 			
 - scp:
@@ -272,3 +296,13 @@ CMD reference:
 - ssh-keygen:
 	- Generate a key: `ssh-keygen -t ed25519 -f "$HOME/Downloads/id_ed25519" -m [ PEM | PKCS8 | RFC4716 ]`
 		
+
+OTHER TIPS:
+
+- Brace expansion using {...} can reduce having to re-type similar text and automate combinations of items. This is helpful in examples like mv foo.{txt,pdf} some-dir (which moves both files), cp somefile{,.bak} (which expands to cp somefile somefile.bak) or mkdir -p test-{a,b,c}/subtest-{1,2,3} (which expands all possible combinations and creates a directory tree). Brace expansion is performed before any other expansion.
+
+- As the man page says, rsync really is a fast and extraordinarily versatile file copying tool. It's known for synchronizing between machines but is equally useful locally. When security restrictions allow, using rsync instead of scp allows recovery of a transfer without restarting from scratch. It also is among the fastest ways to delete large numbers of files: `mkdir empty && rsync -r --delete empty/ some-dir && rmdir some-dir`
+
+- In Bash scripts, use set -x (or the variant set -v, which logs raw input, including unexpanded variables and comments) for debugging output. Use strict modes unless you have a good reason not to: Use set -e to abort on errors (nonzero exit code). Use set -u to detect unset variable usages. Consider set -o pipefail too, to abort on errors within pipes (though read up on it more if you do, as this topic is a bit subtle). For more involved scripts, also use trap on EXIT or ERR. A useful habit is to start a script like this, which will make it detect and abort on common errors and print a message:
+      `set -euo pipefail`
+      `trap "echo 'error: Script failed: see failed command above'" ERR`
