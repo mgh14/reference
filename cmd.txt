@@ -207,6 +207,19 @@ CMD reference:
 	- Do something in different directory: `(cd <different dir> && <cmd>)`
 		- e.g. `(cd ~.git && ls)`
 			- Note: still in the original directory after executing
+			
+	- Array slicing (https://www.gnu.org/software/bash/manual/bash.htmlShell-Parameter-Expansion):
+		# See the [Parameter Expansion][1] section in the Bash `man` page.
+		# `A[@]` returns the contents of the array, `:1:2` takes a slice of
+		# length 2, starting at index 1.
+
+		 A=( foo bar "a  b c" 42 )
+		 B=("${A[@]:1:2}")
+		 C=("${A[@]:1}")       # slice to the end of the array
+		 echo "${B[@]}"        # bar a  b c
+		 echo "${B[1]}"        # a  b c
+		 echo "${C[@]}"        # bar a  b c 42
+		 echo "${C[@]: -2:2}"  # a  b c 42 # The space before the - is necesssary
 				
 			
 - scp:
