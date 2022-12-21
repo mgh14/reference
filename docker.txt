@@ -62,3 +62,14 @@ DOCKER reference:
 		- e.g. docker export e2b08d5ff214 -o ~/Downloads/my-app.tar
 	- step 2: docker import <tar filename> <tag:version>
 		- e.g. docker import ~/Downloads/my-app.tar my-app:v2.5
+		
+- Container subcommand: `docker container [attach | commit | cp | diff | inspect | kill | logs | pause | port | prune | restart | stats | stop | top]`
+	- Note: there are other sub-commands of `container` too
+
+DEBUGGING:
+- Inspect a container: `docker container inspect <container ID>`
+- Check which ports are mapped for a container: `docker port test`
+- Top processes of a container: `docker top <container ID>`
+- Pause a container: `docker pause <container ID>`
+- Save a container to a tar: `docker save <container ID> [<container ID>]`
+- Commit changes from image to container state of a running container: `docker commit <container ID> [REPOSITORY[:TAG]]`
