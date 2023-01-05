@@ -2,6 +2,17 @@ GRADLE:
 
 - Skip tests (and other things, like linting): -x test
 	- e.g.: ./gradlew build -x test -x pmd -x lint
+- Only run specific tests: --tests <test expression>
+	- see https://stackoverflow.com/questions/22505533/how-to-run-only-one-unit-test-class-using-gradle
+		gradle test --tests org.gradle.SomeTest.someSpecificFeature
+		gradle test --tests '*SomeTest.someSpecificFeature'
+		gradle test --tests '*SomeSpecificTest'
+		gradle test --tests 'all.in.specific.package*'
+		gradle test --tests '*IntegTest'
+		gradle test --tests '*IntegTest*ui*'
+		gradle test --tests '*IntegTest.singleMethod'
+		gradle someTestTask --tests '*UiTest' someOtherTestTask --tests '*WebTest*ui'
+	- See also 'Test Filters' in the build file portion
 - Run without caching:
 	- delete `$HOME/.gradle`
 	- Run `./gradlew --no-daemon no-configuration-cache --no-build-cache <task>`, e.g. `./gradlew --no-daemon --no-build-cache assemble`
@@ -10,6 +21,7 @@ GRADLE:
 	- e.g.: `./gradlew build --debug`
 	- another param for more output: --console [plain | auto | rich | verbose]
 - Run with tasks disabled/dry-run: `--dry-run` or `-m`
+
 	
 DEPENDENCIES:
 - find unused dependencies (in build.gradle file):
@@ -50,6 +62,70 @@ BUILD FILE:
   jar {
 	  archivesBaseName = 'my-app-name-here'
   }
+- Test Filters:
+apply plugin: 'java'
+test {
+	// explicitly include or exclude tests
+	include 'org/foo/**'
+   	exclude 'org/boo/**'
+  
+  	filter {
+		//specific test method
+		includeTestsMatching "org.gradle.SomeTest.someSpecificFeature"
+
+		//specific test method, use wildcard for packages
+		includeTestsMatching "*SomeTest.someSpecificFeature"
+
+		//specific test class
+		includeTestsMatching "org.gradle.SomeTest"
+
+		//specific test class, wildcard for packages
+		includeTestsMatching "*.SomeTest"
+
+		//all classes in package, recursively
+		includeTestsMatching "com.gradle.tooling.*"
+
+		//all integration tests, by naming convention
+		includeTestsMatching "*IntegTest"
+
+		//only ui tests from integration tests, by some naming convention
+		includeTestsMatching "*IntegTest*ui"
+   	}
+}
+- Test JVM Args:
+plugins {
+    id 'java' // adds 'test' task
+}
+
+test {
+	// set JVM arguments for the test JVM(s)
+	jvmArgs '-XX:MaxPermSize=256m -XX:+HeapDumpOnOutOfMemoryError'
+}
+- Test Logging:
+plugins {
+    id 'java' // adds 'test' task
+}
+
+test {
+	// show standard out and standard error of the test JVM(s) on the console
+	testLogging.showStandardStreams = true
+
+	// listen to events in the test execution lifecycle
+	beforeTest { descriptor ->
+	  logger.lifecycle("Running test: " + descriptor)
+	}
+
+	// listen to standard out and standard error of the test JVM(s)
+	onOutput { descriptor, event ->
+	  logger.lifecycle("Test: " + descriptor + " produced standard out/err: " + event.message )
+	}
+}
+- Debug A Test Run (in the build file of the module containing the unit test):
+tasks.test {
+    jvmArgs("-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=*:5005")
+	// then attach a remote jvm debugger on the address port, and put a breakpoint in the test
+}
+
  
 TASKS:
 - disable a task:	<taskname>.enabled = false
