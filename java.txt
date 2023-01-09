@@ -113,6 +113,8 @@ JAVA reference:
 	KeyPairGenerator kpg = KeyPairGenerator.getInstance("Ed25519");
 	KeyPair kp = kpg.generateKeyPair();
 	new String(Hex.encode(kp.getPrivate().getEncoded()))
+	
+- Declare a byte array via hex: new byte[] { (byte) 0x00, (byte) 0x2b, (byte) 0x3c }
 
 ---------------------------------------------------------------------------------
 SPRING:
