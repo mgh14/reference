@@ -100,6 +100,8 @@ plugins {
 test {
 	// set JVM arguments for the test JVM(s)
 	jvmArgs '-XX:MaxPermSize=256m -XX:+HeapDumpOnOutOfMemoryError'
+	
+	// can include "-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=*:5005" and connect with remote debugger if needed to tests
 }
 - Test Logging:
 plugins {
