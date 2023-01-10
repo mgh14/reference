@@ -30,12 +30,37 @@ DEPENDENCIES:
 	}
 	- command: `gradle lintGradle -PgradleLint.rules=unused-dependency`
 	
-- exclude a dependency:
-  configurations {
-      implementation {
+- exclude a dependency (single configuration):
+  dependencies {
+      implementation("<parent group>:<parent module>:<parent version>") {
+          exclude group: '<child group>', module: '<child module>'
+	  // Note: `group:` or `module:` by itself is also acceptable:
+      } 
+  }
+
+- exclude a dependency (across all dependencies):
+  configurations {	// could also use `configurations.all { }` for ALL groupings (i.e. implementation + compileOnly + runtimeOnly + ...)
+      implementation {		
           exclude group: 'org.mockito', module: 'mockito-junit-jupiter'
       }
   }
+  - could also use `configurations.implementation { }`
+  
+- replace a dependency:
+  dependencies {
+      implementation("org.springframework.boot:spring-boot-starter-log4j2:2.5.3")
+      modules {
+          module("org.springframework.boot:spring-boot-starter-logging") {
+	      // replacedBy("<group>:<module>", "<reason for replacement>"), e.g.:
+              replacedBy("org.springframework.boot:spring-boot-starter-log4j2", "Use Log4j2 instead of Logback")
+          }
+      }
+  }
+  
+- !common dependency pitfalls:
+  - DON'T use `name` instead of `module`!
+  - `exclude` must use a map, NOT a string 
+  	- i.e. can't use `exclude 'org.mockito:mockito-junit-jupiter:1.2.3'` because the dependency is a string
   
 - see all dependencies of a project (does NOT grab subprojects in the folder!):
 	- `./gradlew dependencies --configuration < runtimeClasspath | implementation | compileClasspath | (etc…) >
