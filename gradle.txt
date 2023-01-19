@@ -15,7 +15,7 @@ GRADLE:
 	- See also 'Test Filters' in the build file portion
 - Run without caching:
 	- delete `$HOME/.gradle`
-	- Run `./gradlew --no-daemon no-configuration-cache --no-build-cache <task>`, e.g. `./gradlew --no-daemon --no-build-cache assemble`
+	- Run `./gradlew --no-daemon --no-configuration-cache --no-build-cache <task>`, e.g. `./gradlew --no-daemon --no-build-cache assemble`
 	- others: --no-parallel, no-scan, no-watch-fs
 - Run in debug: `--debug` or `-d`
 	- e.g.: `./gradlew build --debug`
