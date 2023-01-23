@@ -19,3 +19,7 @@ GIT reference:
 		- e.g. `git push origin '0.32.0-alpha.0'`
 	- untag: git push origin :<version>
 		- e.g. `git push origin :1.1`
+		
+- Debug (https://gist.github.com/paolocarrasco/18ca8fe6e63490ae1be23e84a7039374):
+	- `GIT_TRACE=1 <git command>`
+		- e.g. `GIT_TRACE=1 git commit -m 'my commit message'`
