@@ -23,3 +23,7 @@ GIT reference:
 - Debug (https://gist.github.com/paolocarrasco/18ca8fe6e63490ae1be23e84a7039374):
 	- `GIT_TRACE=1 <git command>`
 		- e.g. `GIT_TRACE=1 git commit -m 'my commit message'`
+
+- Display the remote URL:
+	- `git config --get remote.origin.url`
+	- Also useful: list all the config entries: `git config -l`
