@@ -65,6 +65,10 @@ DOCKER reference:
 		
 - Container subcommand: `docker container [attach | commit | cp | diff | inspect | kill | logs | pause | port | prune | restart | stats | stop | top]`
 	- Note: there are other sub-commands of `container` too
+	
+- Docker ENGINE log locations (https://docs.docker.com/config/daemon/logs/):
+	- `dockerd`: ~/Library/Containers/com.docker.docker/Data/log/vm/dockerd.log
+	- `containerd`: ~/Library/Containers/com.docker.docker/Data/log/vm/containerd.log
 
 DEBUGGING:
 - Inspect a container: `docker container inspect <container ID>`
