@@ -116,6 +116,11 @@ JAVA reference:
 	
 - Declare a byte array via hex: new byte[] { (byte) 0x00, (byte) 0x2b, (byte) 0x3c }
 
+- Get current working directory (https://stackoverflow.com/questions/4871051/how-to-get-the-current-working-directory-in-java):
+	Path currentRelativePath = Paths.get("");
+	String s = currentRelativePath.toAbsolutePath().toString();
+	System.out.println("Current absolute path is: " + s);
+
 ---------------------------------------------------------------------------------
 SPRING:
 - Parameterized type reference with use of RestTemplate: new ParameterizedTypeReference<List<ScheduledCelebrationAction>>() {};
