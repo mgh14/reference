@@ -77,3 +77,5 @@ DEBUGGING:
 - Pause a container: `docker pause <container ID>`
 - Save a container to a tar: `docker save <container ID> [<container ID>]`
 - Commit changes from image to container state of a running container: `docker commit <container ID> [REPOSITORY[:TAG]]`
+
+BEST PRACTICES: https://mydeveloperplanet.com/2022/11/30/docker-best-practices/
