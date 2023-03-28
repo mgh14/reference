@@ -27,3 +27,31 @@ GIT reference:
 - Display the remote URL:
 	- `git config --get remote.origin.url`
 	- Also useful: list all the config entries: `git config -l`
+	
+- Remove a file from the staging area: `git rm --cached <file>`
+	- e.g. `git rm --cached pom.xml`
+	
+- Parent of `HEAD`: `HEAD^` or `HEAD~1`
+	- Grandparent: `HEAD^^` or `HEAD~2`
+	
+- Display branches with last commit: `git branch -v`
+	- remote only: add `-r`
+	
+- Display changes to staged files: `git diff --staged`
+
+- Add a message to the git stash: `git stash save "<message>"`
+
+- Apply a stash from the stash list (does NOT remove it from the list): `git stash apply <stash id>`
+	- e.g. `git stash apply stash@{0}`
+	
+- Show stash changes: `git stash show <stash id>`
+
+- Display remote repos: `git remote -v`
+
+- Fetch only from a particular branch: `git fetch <remote> <branch>`
+	- e.g. `git fetch origin my-branch-1`
+	- can also use `pull` instead of `fetch`
+
+
+	
+- Other things: https://tapajyoti-bose.medium.com/git-cheat-sheet-with-40-commands-concepts-ab1b9d973e96
