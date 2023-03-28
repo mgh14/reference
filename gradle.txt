@@ -167,3 +167,5 @@ TASKS:
 		dependsOn(project(":subproject1:subproject2").tasks.jar)
 	}
 	
+BUILD LIFECYCLE: https://docs.gradle.org/current/userguide/build_lifecycle.html
+JAVA LIB CONFIGS: https://docs.gradle.org/current/userguide/java_library_plugin.html#sec:java_library_configurations_graph
