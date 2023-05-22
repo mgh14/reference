@@ -46,3 +46,6 @@ mktemp:
 
 Dock:
 opt + cmd + click on dock item: hide everything else (e.g. opt + cmd + click on 'Sublime' hides everything but the Sublime windows)
+
+Read .plist Files:
+`plutil -p <plist file`, e.g. `plutil -p ~/Library/Preferences/com.apple.dock.plist`
