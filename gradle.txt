@@ -21,6 +21,7 @@ GRADLE:
 	- e.g.: `./gradlew build --debug`
 	- another param for more output: --console [plain | auto | rich | verbose]
 - Run with tasks disabled/dry-run: `--dry-run` or `-m`
+- Stop a daemon: `./gradlew stop`
 
 	
 DEPENDENCIES:
