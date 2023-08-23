@@ -183,7 +183,7 @@ MAVEN:
 - Effective pom: mvn help:effective-pom -Doutput=out.log -Dverbose=true
 - Identify unneeded dependencies: `mvn dependency:analyze -DignoreNonCompile`
 ---------------------------------------------------------------------------------
-JUNIT:
+TESTING/JUNIT:
 - Parameterized test example:
     @CsvSource({
         "string1.1,string2.1",
@@ -194,3 +194,14 @@ JUNIT:
     @ParameterizedTest
     void rejectsInvalidRanges(String literal, String iaeMsg) {
     }
+
+- Mockito argument captor (https://www.baeldung.com/mockito-argumentcaptor):
+	@Captor
+	ArgumentCaptor<Email> emailCaptor;
+	
+	@Test
+	void test() {
+	  // ... 
+	  verify(mockedObj).deliver(emailCaptor.capture());
+	  Email value = emailCaptor.getValue();
+	}
