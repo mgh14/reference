@@ -22,6 +22,8 @@ GRADLE:
 	- another param for more output: --console [plain | auto | rich | verbose]
 - Run with tasks disabled/dry-run: `--dry-run` or `-m`
 - Stop a daemon: `./gradlew stop`
+- Run offline: `--offline`
+	- e.g.: `./gradlew --offline build`
 
 	
 DEPENDENCIES:
