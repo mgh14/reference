@@ -55,6 +55,7 @@ CMD reference:
 		grep -c "abc" file.txt
 	- include/exclude file: --include or --exclude
 		grep --exclude "*.sql" "abc" file.sql
+		- grep recursively, filtering on filename: grep -r "string" --include="*.php" .
 		- include/exclude directory: --include-dir --exclude-dir
 			- e.g. grep --exclude-dir={dir1,dir2,dir3} 
 		- NOTE: excludes TAKE PRECIDENCE OVER INCLUDES!!!
