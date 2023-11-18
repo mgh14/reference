@@ -86,11 +86,13 @@ JAVA reference:
 
 - Comparing the class of a variable to a known class: MyClass.class.isAssignableFrom(variable.getClass())
 	- This means variable.getClass() would be an instance of MyClass OR still assignable as a parent type
-	
-- Unarchive a jar: jar xf <jar> [file1 file2 file3]
-	- e.g.: jar xf MyJar.jar
-	- e.g.: jar xf MyJar.java JavaFileInJar.java TxtFileInJar.txt
-	- Use an unzip utility (a jar is a zipped file)
+- Jars (see https://docs.oracle.com/javase/tutorial/deployment/jar/basicsindex.html):	
+	- Unarchive a jar (or specific files): jar xf <jar> [file1 file2 file3]
+		- e.g.: jar xf MyJar.jar
+		- e.g.: jar xf MyJar.java JavaFileInJar.java TxtFileInJar.txt
+		- Use an unzip utility (a jar is a zipped file)
+	- View contents: jar tf <jar> [file1 file2 file3]
+		- e.g.: jar tf MyJar.jar MANIFEST.mf
 	
 - Reflection:
 	- get a field's value: AnyClass.class.getField("fieldName").get(null);
