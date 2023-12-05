@@ -46,6 +46,6 @@ CMD:
 - Restart finder: killall Finder
 
 Dock:
-opt + cmd + click on dock item: hide everything else (e.g. opt + cmd + click on 'Sublime' hides everything but the Sublime windows)
-
+- opt + cmd + click on dock item: hide everything else (e.g. opt + cmd + click on 'Sublime' hides everything but the Sublime windows)
+- restart the doc: `killall Dock`
 
