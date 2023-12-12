@@ -100,3 +100,6 @@ Inside Settings popup:
 
 - Shift + click on file tab: closes tab
 - In spring boot application class:	ctrl + opt + d: run remote debug
+
+Example Custom Scope:
+<scope name="MProd Java Files" pattern="(file:path_in_project//*.java||src:*..*)&amp;&amp;!file:path_in_project//*Test.java&amp;&amp;!file:path_in_project//*Suite.java&amp;&amp;!src[hedera-services.hapi.testFixtures]:*..*" />
