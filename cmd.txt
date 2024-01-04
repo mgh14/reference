@@ -313,6 +313,8 @@ CMD reference:
 - ssh:
 	- Login user: `-l "<user-here>"`
 	- Use a specific private key: `ssh -o "IdentitiesOnly=yes" -i <private key filename> <hostname>`
+
+- watch/time alternative: `while true; do <cmd>; sleep 5; done`
 		
 
 OTHER TIPS:
