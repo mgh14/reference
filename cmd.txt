@@ -221,7 +221,17 @@ CMD reference:
 		 echo "${B[1]}"        # a  b c
 		 echo "${C[@]}"        # bar a  b c 42
 		 echo "${C[@]: -2:2}"  # a  b c 42 # The space before the - is necesssary
-				
+
+	- Check for empty variable: if [ -z ${var+x} ]; then echo "var is unset"; else echo "var is set to '$var'"; fi
+		- "where ${var+x} is a parameter expansion which evaluates to nothing if var is unset, and substitutes the string x otherwise."
+		- https://stackoverflow.com/questions/3601515/how-to-check-if-a-variable-is-set-in-bash
+
+	- Calling a bash function: 
+		- Declare function in a file, say `file.sh`: `function (talk) { echo "hi!" }`
+		- From cmd line: `source file.sh; talk`
+		- From another script: same, put it on two separate lines though
+		- https://superuser.com/questions/106272/how-to-call-bash-functions
+		
 			
 - scp:
 	- General: scp <local file> <host>:<remote location>
