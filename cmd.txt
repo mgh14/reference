@@ -231,7 +231,8 @@ CMD reference:
 		- From cmd line: `source file.sh; talk`
 		- From another script: same, put it on two separate lines though
 		- https://superuser.com/questions/106272/how-to-call-bash-functions
-		
+
+	- Pass all args to the bash function you're calling: `<func> "$@" "next command" "next next command" "etc."`
 			
 - scp:
 	- General: scp <local file> <host>:<remote location>
@@ -260,7 +261,22 @@ CMD reference:
 - sed: global string replacement: sed -i -e 's/<PATTERN>/<REPLACEMENT>/g' <filename>
 	sed -i -e 's/);$/ /g' 1.sql
 	- e.g. replace all end of line ); with ),: sed -i -e 's/);$/),/g' 2.sql
+	
 	- print to stdout instead of replacing file: remove the '-i' part, e.g. sed -e 's/PATTERN/REPLACE/g' hello.txt
+	
+	- Reference groups/subexpressions: use \# (starting at 1), e.g. \1 or \2
+		- eg: `sed 's/(a*)(b*)/\2\1/g' hello.txt` 
+			- swaps all the A's and B's in the file
+			- see https://www.gnu.org/software/sed/manual/html_node/Back_002dreferences-and-Subexpressions.html
+	
+	- Specify multiple operations: use the `-e` flag multiple times
+		- e.g.: `sed -e 's/s1/s_1/g' -e 's/s2/s_2/' hello.txt`
+
+	- Extended regex notation: -E
+		- Note: the + doesn't seem to work, just use the '*' character
+
+	- Specify the extension of the backup file (if using -i): -I {extension}
+		- e.g.: `sed -Ibakup 's/a/b/g' hello.txt`
   
 - mkdir:
 	- check if directory already exists, and if not, create path to it: mkdir -p <path>
