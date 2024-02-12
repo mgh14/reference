@@ -1,5 +1,7 @@
 VIM
 
+Cheatsheet: https://devhints.io/vim
+
 Turn on syntax highlighting: `:syntax on`
 
 Turn on line numbers: `:set number`
@@ -10,5 +12,40 @@ Delete from line to line: `:<line #>,<line #>d`
   - e.g. `:1,25d`
   - Also works with regex:
     - e.g. `:^,$d` (entire contents)
-    
- 
+
+Copy/Paste (Vim buffer only):
+  - Copy/yank: `y`
+    - entire line: `yy`
+  - Paste: `p`
+    - Paste before: `P` (capitalized p)
+  
+
+Copy To/Paste From (Mac) paste buffer: 
+  - Copy: add `pbcopy` to command. E.g. `:1,50!pbcopy`
+  - Paste from (Mac) clipboard: `:r !pbpaste`
+  - https://superuser.com/questions/690436/how-can-i-copy-into-the-mac-clipboard-from-vim
+
+Navigation:
+  - previous/next word: b / w
+  - previous/next END of word: g+e / e
+  - Line: 
+    - Start: 0 (zero)
+    - Non-whitespace start: ^
+    - End: $
+  - Go forward to character <x>: `f<x>`, e.g. `fc` to go to char 'c' 
+    - backward to char <x>: `F<x>`, e.g. `Fc`
+  - Line number: `:<number>`, e.g. `:355`
+  - Jump down <x> lines: `<x>j`, e.g. `35j`
+    - jump up <x> lines: `<x>k`, e.g. `10k`
+  - Move Cursor to:
+    - Top line: H
+    - Middle line: M
+    - Bottom line: L
+    - left,down,up,right: h,j,k,l
+
+Repeat last command: `.`
+
+Find/Replace: `:%s/foo/bar/g` (sed syntax)
+
+List tabs: `:tabs`
+List marks: `:marks`
