@@ -24,6 +24,10 @@ CMD reference:
 		- convert timestamp to date (Mac): `date -r <timestamp>`
 			- use `-u` for UTC time
 			- e.g. `date -r 1267619929 -u`
+			- see https://stackoverflow.com/questions/2371248/how-to-convert-timestamps-to-dates-in-bash
+				- one-liner cross-platform: `date -d @1267619929 2>/dev/null || date -r 1267619929`
+		- get current timestamp: `echo $(date +%s)`
+			- https://stackoverflow.com/questions/17066250/create-timestamp-variable-in-bash-script
 
 	- find:
 		- execute command for each result: find /path/to/start -type f -name "*.plist" -exec sed -i -e 's/SEARCH/REPLACE/g' \;
