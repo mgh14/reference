@@ -14,6 +14,17 @@ CMD reference:
 		- nth arg of current line: !#:n
 			- e.g. echo a b c !#:2 yields 'echo a b c b'
 
+	- ls:
+		- list by date order: `-t`
+			- e.g. `ls -t *.txt`
+			- 'Time last modified'
+			- see https://www.zerotouch.com/faqs/111/ls-by-date
+
+	- dates:
+		- convert timestamp to date (Mac): `date -r <timestamp>`
+			- use `-u` for UTC time
+			- e.g. `date -r 1267619929 -u`
+
 	- find:
 		- execute command for each result: find /path/to/start -type f -name "*.plist" -exec sed -i -e 's/SEARCH/REPLACE/g' \;
 			- another example: find . -name "*.jar" -exec echo {} \;
@@ -215,19 +226,22 @@ CMD reference:
 	- Do something in different directory: `(cd <different dir> && <cmd>)`
 		- e.g. `(cd ~.git && ls)`
 			- Note: still in the original directory after executing
-			
-	- Array slicing (https://www.gnu.org/software/bash/manual/bash.htmlShell-Parameter-Expansion):
-		# See the [Parameter Expansion][1] section in the Bash `man` page.
-		# `A[@]` returns the contents of the array, `:1:2` takes a slice of
-		# length 2, starting at index 1.
 
-		 A=( foo bar "a  b c" 42 )
-		 B=("${A[@]:1:2}")
-		 C=("${A[@]:1}")       # slice to the end of the array
-		 echo "${B[@]}"        # bar a  b c
-		 echo "${B[1]}"        # a  b c
-		 echo "${C[@]}"        # bar a  b c 42
-		 echo "${C[@]: -2:2}"  # a  b c 42 # The space before the - is necesssary
+	- Arrays:	
+		- Array slicing (https://www.gnu.org/software/bash/manual/bash.htmlShell-Parameter-Expansion):
+			# See the [Parameter Expansion][1] section in the Bash `man` page.
+			# `A[@]` returns the contents of the array, `:1:2` takes a slice of
+			# length 2, starting at index 1.
+
+		 	A=( foo bar "a  b c" 42 )
+		 	B=("${A[@]:1:2}")
+		 	C=("${A[@]:1}")       # slice to the end of the array
+		 	echo "${B[@]}"        # bar a  b c
+		 	echo "${B[1]}"        # a  b c
+		 	echo "${C[@]}"        # bar a  b c 42
+		 	echo "${C[@]: -2:2}"  # a  b c 42 # The space before the - is necesssary
+		- Array length: `${#ArrayName[@]}`, e.g. `echo ${#my_array[@]}`
+			- https://www.cyberciti.biz/faq/finding-bash-shell-array-length-elements/
 
 	- Check for empty variable: if [ -z ${var+x} ]; then echo "var is unset"; else echo "var is set to '$var'"; fi
 		- "where ${var+x} is a parameter expansion which evaluates to nothing if var is unset, and substitutes the string x otherwise."
@@ -239,6 +253,28 @@ CMD reference:
 		- From cmd line: `source file.sh; talk`
 		- From another script: same, put it on two separate lines though
 		- https://superuser.com/questions/106272/how-to-call-bash-functions
+	
+	- Return value from bash function:
+		- inside function: `echo $returnValue`
+			- e.g.:
+				function F2()
+				{
+					local retval='Using BASH Function'
+					echo "$retval"
+				}
+				# outside of function:
+				getval=$(F2)
+				echo $getval
+
+		- for an integer (0 success, non-zero for otherwise): `return X`
+			- e.g.:
+				function F4() {
+					echo 'Bash Return Statement'
+					return 35
+				}
+   				# outside of function:
+				F4
+				echo "Return value of the function is $?"
 
 	- Pass all args to the bash function you're calling: `<func> "$@" "next command" "next next command" "etc."`
 
