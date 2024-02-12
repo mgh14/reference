@@ -67,6 +67,9 @@ CMD reference:
 			- see:
 				- https://superuser.com/questions/31464/looping-through-ls-results-in-bash-shell-script
 				- https://unix.stackexchange.com/questions/62660/the-result-of-ls-ls-and-ls
+		- see: 
+			- https://www.cyberciti.biz/faq/bash-for-loop/
+			- https://tldp.org/HOWTO/Bash-Prog-Intro-HOWTO-7.html
 
 	- GREP:
 	- extended regexp, -E
