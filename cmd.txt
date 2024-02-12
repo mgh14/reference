@@ -1,5 +1,7 @@
 CMD reference:
 
+- bash cheatsheet: https://devhints.io/bash
+
 - bash:
 	- arguments:
 		- last argument (from last command): !$
