@@ -13,13 +13,14 @@ Delete from line to line: `:<line #>,<line #>d`
   - Also works with regex:
     - e.g. `:^,$d` (entire contents)
 
+Insert: `:<number>i<char><esc>`, e.g. `30i-` (followed by `esc` key)
+
 Copy/Paste (Vim buffer only):
   - Copy/yank: `y`
     - entire line: `yy`
   - Paste: `p`
     - Paste before: `P` (capitalized p)
   
-
 Copy To/Paste From (Mac) paste buffer: 
   - Copy: add `pbcopy` to command. E.g. `:1,50!pbcopy`
   - Paste from (Mac) clipboard: `:r !pbpaste`
@@ -42,10 +43,18 @@ Navigation:
     - Middle line: M
     - Bottom line: L
     - left,down,up,right: h,j,k,l
+  - Number-powered movement: `<number><motion>`, e.g. `5w` moves five words ahead
 
 Repeat last command: `.`
 
 Find/Replace: `:%s/foo/bar/g` (sed syntax)
+Replace one char: `r<new char>`, e.g. `rE`
 
 List tabs: `:tabs`
 List marks: `:marks`
+
+Find next occurrence of char: f<char> or F<char>, e.g. `fP`
+Next occurrence of word (under cursor): `*` (forward) and `#` (backward)
+
+Undo: `u`
+Redo: ctrl+R
