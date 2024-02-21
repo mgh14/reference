@@ -59,3 +59,7 @@ Launch Agents/Daemons:
 	/System/Library/LaunchAgents
 	/System/Library/LaunchDaemons
 ```
+iTerm2:
+- Add a shortcut for 'Edit Session' (changing title of terminal tab): 
+	- Click the + to add a binding. Click the first field and press the shortcut you want. For the action, choose "Change Profile".  A new field will appear where you can select the profile to change to.
+	- https://gitlab.com/gnachman/iterm2/-/issues/3046
