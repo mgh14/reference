@@ -300,6 +300,8 @@ CMD reference:
 		- e.g. localfile.txt a-mile-app-port-1.qa.octanner.net:./
 	- Specify SSH user: -o "User=<USER-HERE>", e.g. "User=matt.hess@octanner.com"
 		scp -o "User=<USER-HERE>@octanner.com" eclientlink2-21.06.01b-custom.war a-mile-app-port-1.qa.octanner.net:./
+	- Using a specific SSH key: `scp -o "User=<USER-HERE>" -i <path to private key file> <local file> <host>:<remote location>
+		- e.g. `scp -o "User=matt_hess" -i /Users/matthess/.ssh/my-special-key my-file.txt 1.1.1.1:./
     
 - type: 
 	- finds a program: type <command>, e.g. type java
