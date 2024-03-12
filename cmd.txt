@@ -404,6 +404,12 @@ CMD reference:
 	- Use a specific private key: `ssh -o "IdentitiesOnly=yes" -i <private key filename> <hostname>`
 
 - watch/time alternative: `while true; do <cmd>; sleep 5; done`
+
+- nohup (https://phoenixnap.com/kb/linux-nohup):
+	- Run in foreground (just outputs to nohup.out): `nohup <cmd>`
+	- Run in background: `nohup <cmd> &`
+		- to bring background to foreground, type `fg`
+	- Use `-c` for multiple commands: `nohup <bin file> -c '<cmd1> && <cmd2>'
 		
 
 OTHER TIPS:
