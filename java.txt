@@ -184,6 +184,7 @@ MAVEN:
 		RUN ./mvnw package --batch-mode -s settings.xml -DskipTests -Dmaven.test.skip=true -Djacoco.skip=true -Dpmd.skip -Dfmt.skip -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
 - Effective pom: mvn help:effective-pom -Doutput=out.log -Dverbose=true
 - Identify unneeded dependencies: `mvn dependency:analyze -DignoreNonCompile`
+- Show active profiles: `mvn help:active-profiles`
 ---------------------------------------------------------------------------------
 TESTING/JUNIT:
 - Parameterized test example:
