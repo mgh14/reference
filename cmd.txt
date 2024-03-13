@@ -410,6 +410,11 @@ CMD reference:
 	- Run in background: `nohup <cmd> &`
 		- to bring background to foreground, type `fg`
 	- Use `-c` for multiple commands: `nohup <bin file> -c '<cmd1> && <cmd2>'
+
+- Making sounds:
+	- `tput bel`
+	- `say "word"` # most words probably work here
+	- `printf "\a"`
 		
 
 OTHER TIPS:
