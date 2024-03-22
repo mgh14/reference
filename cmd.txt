@@ -390,11 +390,16 @@ CMD reference:
 	- Soft links don't work anymore if the original file gets moved
 
 - gpg:
+	- for help: `gpg --dump-options`
 	- the `-v`, `--debug`, and `--debug-all` options
 	- list keys: `gpg --list-keys`
 		- private keys: `gpg --list-secret-keys`
 	- the `--dry-run` option will simulate what happens
 	- home dir is `$HOME/.gnupg`
+	- sign with default key: `gpg -s <file to sign>`
+		- sign with specific (local) key: `gpg -s --local-user=<key id> <file to sign>`
+			- e.g. `gpg -s --local-user=AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA file-to-sign.txt`
+	- test signing: `echo "test" | gpg --clearsign -v` 
 
 - ssh-keygen:
 	- Generate a key: `ssh-keygen -t ed25519 -f "$HOME/Downloads/id_ed25519" -m [ PEM | PKCS8 | RFC4716 ]`
