@@ -73,42 +73,6 @@ CMD reference:
 			- https://www.cyberciti.biz/faq/bash-for-loop/
 			- https://tldp.org/HOWTO/Bash-Prog-Intro-HOWTO-7.html
 
-	- GREP:
-	- extended regexp, -E
-		- (look for ');' at the end of each line): grep -E ");$" file.txt 
-	- show line numbers: -n
-		grep -n "abc" file.txt
-	- count instances: -c
-		grep -c "abc" file.txt
-	- include/exclude file: --include or --exclude
-		grep --exclude "*.sql" "abc" file.sql
-		- grep recursively, filtering on filename: grep -r "string" --include="*.php" .
-		- include/exclude directory: --include-dir --exclude-dir
-			- e.g. grep --exclude-dir={dir1,dir2,dir3} 
-		- NOTE: excludes TAKE PRECIDENCE OVER INCLUDES!!!
-		- https://stackoverflow.com/questions/6565471/how-can-i-exclude-directories-from-grep-r
-	- Don't search devices, FIFOs, sockets: -D skip
-		grep -R -D skip "abc" /
-	- Don't print filename: -h
-	- MULTIPLE PATTERNS!!! -e
-		grep -e "^abc.+" -e "^otherpattern.+" file.txt
-		- for multiple NOTs, use -ve for each:
-			grep -E -ve ";$" -ve "uigznaosy" -ve "--" -ve "^\s*$" -ve "^ALTER TABLE ONLY" -ve "\s+at org\.springframework" dev-core-db-dump-2-sep-2021.sql
-		- Positive match uses of -e function as OR's, not AND's:
-			grep -E -e "--" -e "^\s*$" -m 10 dev-core-db-dump-2-sep-2021.sql | grep -E -e "-- Dumped" -e "-- PostgreSQL database dump"
-				- this returns instances of lines with only ONE of the above final grep's -e pattern matched
-	- Ignore binary files: -I
-	- List only the names of files not containing selected lines: -L
-	- List files with matches, only searching until first instance INSIDE THE FILE is found: -l 
-		- (lowercase L)
-		- i.e. still lists multiple files, in other words list every file that has at least one match
-	- Max count/number of matches: -m
-	- Only show matching part of line: -o 
-	- Run silent, i.e. nonexistent or unreadable files ignored (messages suppressed): -s
-	- Line regexp, Only input lines selected against an entire fixed string or regular expression are considered to be matching lines: -x
-	- The expression is searched for as a word (as if surrounded by `[[:<:]]' and `[[:>:]]'; see re_format(7)): -w
-	- Prints a zero-byte after the file name: --null
-
 	- copy file from user1 to user2 (user2 has elevated privileges):
 		- login as user1
 		- sudo su - user2
@@ -294,6 +258,49 @@ CMD reference:
     		    echo "File found. Do something meaningful here"
 		fi
 		- other file conditions: https://www.cyberciti.biz/faq/bash-check-if-file-does-not-exist-linux-unix/
+
+	- Get parts of file (https://stackoverflow.com/questions/23162299/how-to-get-the-last-part-of-dirname-in-bash):
+		- directory name: `$(dirname '/from/here/to/there.txt/')` yields `/from/here/to`
+		- file name: `$(basename '/from/here/to/there.txt/')` yields 'there.txt'
+
+	- Colors and Formatting (https://misc.flogisoft.com/bash/tip_colors_and_formatting):
+		- escape: \e
+
+grep:
+	- extended regexp, -E
+		- (look for ');' at the end of each line): grep -E ");$" file.txt 
+	- show line numbers: -n
+		grep -n "abc" file.txt
+	- count instances: -c
+		grep -c "abc" file.txt
+	- include/exclude file: --include or --exclude
+		grep --exclude "*.sql" "abc" file.sql
+		- grep recursively, filtering on filename: grep -r "string" --include="*.php" .
+		- include/exclude directory: --include-dir --exclude-dir
+			- e.g. grep --exclude-dir={dir1,dir2,dir3} 
+		- NOTE: excludes TAKE PRECIDENCE OVER INCLUDES!!!
+		- https://stackoverflow.com/questions/6565471/how-can-i-exclude-directories-from-grep-r
+	- Don't search devices, FIFOs, sockets: -D skip
+		grep -R -D skip "abc" /
+	- Don't print filename: -h
+	- MULTIPLE PATTERNS!!! -e
+		grep -e "^abc.+" -e "^otherpattern.+" file.txt
+		- for multiple NOTs, use -ve for each:
+			grep -E -ve ";$" -ve "uigznaosy" -ve "--" -ve "^\s*$" -ve "^ALTER TABLE ONLY" -ve "\s+at org\.springframework" dev-core-db-dump-2-sep-2021.sql
+		- Positive match uses of -e function as OR's, not AND's:
+			grep -E -e "--" -e "^\s*$" -m 10 dev-core-db-dump-2-sep-2021.sql | grep -E -e "-- Dumped" -e "-- PostgreSQL database dump"
+				- this returns instances of lines with only ONE of the above final grep's -e pattern matched
+	- Ignore binary files: -I
+	- List only the names of files not containing selected lines: -L
+	- List files with matches, only searching until first instance INSIDE THE FILE is found: -l 
+		- (lowercase L)
+		- i.e. still lists multiple files, in other words list every file that has at least one match
+	- Max count/number of matches: -m
+	- Only show matching part of line: -o 
+	- Run silent, i.e. nonexistent or unreadable files ignored (messages suppressed): -s
+	- Line regexp, Only input lines selected against an entire fixed string or regular expression are considered to be matching lines: -x
+	- The expression is searched for as a word (as if surrounded by `[[:<:]]' and `[[:>:]]'; see re_format(7)): -w
+	- Prints a zero-byte after the file name: --null
 			
 - scp:
 	- General: scp <local file> <host>:<remote location>
@@ -420,6 +427,31 @@ CMD reference:
 	- `tput bel`
 	- `say "word"` # most words probably work here
 	- `printf "\a"`
+
+date:
+	- formatting options (https://www.tutorialkart.com/bash-shell-scripting/bash-date-format-options-examples/#gsc.tab=0):
+		Text |	Description				 | Example
+		----------------------------------------------------------
+		%a   |	Weekday					 | Mon
+		%A   |	Weekday					 | Monday
+		%b   |	Month					 | Jan
+		%B   |	Month					 | January
+		%d   |	Day					 | 04
+		%D   |	Date as MM/DD/YY			 | 04/15/24
+		%F   |	Date as YYYY-MM-DD			 | 2024-04-15
+		%H   |	Hour (24)				 | 18
+		%I   |	Hour (12)				 | 10
+		%j   |	Day (001..366)				 | 152
+		%m   |	Month (01..12)				 | 05
+		%M   |	Minutes					 | 52
+		%S   |	Seconds					 | 18
+		%T   |	Time as HH:MM:SS			 | 15:28:59
+		%u   |	Day (1..7)				 | 7
+		%U   |	Week (00..53)				 | 23
+		%Y   |	Year					 | 2018
+		%Z   |	Timezone (abbrev.)			 | GMT
+
+		Example command: `date '+%D --- %T'` yields `04/15/24 --- 15:32:13`
 		
 
 OTHER TIPS:
