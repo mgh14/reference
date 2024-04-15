@@ -2,269 +2,271 @@ CMD reference:
 
 - bash cheatsheet: https://devhints.io/bash
 
-- bash:
-	- arguments:
-		- last argument (from last command): !$
-		- nth argument (from last command): !:n
-			- e.g. !:2
-		- all n arguments: !:n-$
-			- e.g. !:3-$ for everything after the second word
-		- last arg of n commands ago: !-n:$
-			- e.g. !-4:$ for the last arg four commands ago
-		- strip filename off of folder: !$:h
-			- e.g. cd /etc/docker fails, then cd !$:h goes to /etc
-		- nth arg of current line: !#:n
-			- e.g. echo a b c !#:2 yields 'echo a b c b'
+### Bash
+- arguments:
+	- last argument (from last command): !$
+	- nth argument (from last command): !:n
+		- e.g. !:2
+	- all n arguments: !:n-$
+		- e.g. !:3-$ for everything after the second word
+	- last arg of n commands ago: !-n:$
+		- e.g. !-4:$ for the last arg four commands ago
+	- strip filename off of folder: !$:h
+		- e.g. cd /etc/docker fails, then cd !$:h goes to /etc
+	- nth arg of current line: !#:n
+		- e.g. echo a b c !#:2 yields 'echo a b c b'
 
-	- ls:
-		- list by date order: `-t`
-			- e.g. `ls -t *.txt`
-			- 'Time last modified'
-			- see https://www.zerotouch.com/faqs/111/ls-by-date
+- ls:
+	- list by date order: `-t`
+		- e.g. `ls -t *.txt`
+		- 'Time last modified'
+		- see https://www.zerotouch.com/faqs/111/ls-by-date
 
-	- dates:
-		- convert timestamp to date (Mac): `date -r <timestamp>`
-			- use `-u` for UTC time
-			- e.g. `date -r 1267619929 -u`
-			- see https://stackoverflow.com/questions/2371248/how-to-convert-timestamps-to-dates-in-bash
-				- one-liner cross-platform: `date -d @1267619929 2>/dev/null || date -r 1267619929`
-		- get current timestamp: `echo $(date +%s)`
-			- https://stackoverflow.com/questions/17066250/create-timestamp-variable-in-bash-script
+- dates:
+	- convert timestamp to date (Mac): `date -r <timestamp>`
+		- use `-u` for UTC time
+		- e.g. `date -r 1267619929 -u`
+		- see https://stackoverflow.com/questions/2371248/how-to-convert-timestamps-to-dates-in-bash
+			- one-liner cross-platform: `date -d @1267619929 2>/dev/null || date -r 1267619929`
+	- get current timestamp: `echo $(date +%s)`
+		- https://stackoverflow.com/questions/17066250/create-timestamp-variable-in-bash-script
 
-	- find:
-		- execute command for each result: find /path/to/start -type f -name "*.plist" -exec sed -i -e 's/SEARCH/REPLACE/g' \;
-			- another example: find . -name "*.jar" -exec echo {} \;
-				- The {} portion of this command represents the found filename, I believe
-				- Note that the semicolon after -exec needs to be escaped
-		- delete all found files: find . -name "*.txt" -delete
+- find:
+	- execute command for each result: find /path/to/start -type f -name "*.plist" -exec sed -i -e 's/SEARCH/REPLACE/g' \;
+		- another example: find . -name "*.jar" -exec echo {} \;
+			- The {} portion of this command represents the found filename, I believe
+			- Note that the semicolon after -exec needs to be escaped
+	- delete all found files: find . -name "*.txt" -delete
 
-	- if:
-		if [ ! -z "$MYVAR1" ] && [ ! -z "$MYVAR2"]; then
-		<command1>
-		elif
-		<command2>
-		elif
-		<command3>
-		else
-		<command4>
-		fi
-	
-		if [ ! -z "$MYVAR1" ] && [ "$ENABLED" == "true" ]; then echo "yep"; else echo "no"; fi
+- if:
+	if [ ! -z "$MYVAR1" ] && [ ! -z "$MYVAR2"]; then
+	<command1>
+	elif
+	<command2>
+	elif
+	<command3>
+	else
+	<command4>
+	fi
 
-	- for loop: 
-		for i in $(cat ~/Desktop/apps.txt | xargs);
-		# for i in cat man tail
+	if [ ! -z "$MYVAR1" ] && [ "$ENABLED" == "true" ]; then echo "yep"; else echo "no"; fi
+
+- for loop: 
+	for i in $(cat ~/Desktop/apps.txt | xargs);
+	# for i in cat man tail
+	do
+	<command>, e.g. echo $i
+	done
+	- also:
+		for (( i=1; i<=5; i++ ))
 		do
-		<command>, e.g. echo $i
-		done
-		- also:
-			for (( i=1; i<=5; i++ ))
-			do
-				<command(s)>
-			done
-		- for `ls`:
-			for f in *.xml; do
-  			    echo "File -> $f"
-			done
-			- see:
-				- https://superuser.com/questions/31464/looping-through-ls-results-in-bash-shell-script
-				- https://unix.stackexchange.com/questions/62660/the-result-of-ls-ls-and-ls
-		- see: 
-			- https://www.cyberciti.biz/faq/bash-for-loop/
-			- https://tldp.org/HOWTO/Bash-Prog-Intro-HOWTO-7.html
-
-	- copy file from user1 to user2 (user2 has elevated privileges):
-		- login as user1
-		- sudo su - user2
-		- <find file, do stuff with it, whatever>
-		- chmod 777 <file>
-		- mv <file> /tmp
-		- exit
-		- (still logged in as user1): cp /tmp/<file> ~/
-		- log back in as user2 and rm /tmp/<file>
-
-	- redirect all out to file: 2>&1
-		- append (as opposed to redirect/overwrite): >>
-			E.g.: cat file1.txt >> file2.txt
-	- xargs parse using comma as end of line, then echo each arg: xargs -E ',' -n1 echo
-		- note: -E might just be the mac os cmd, for linux it might be -d
-		- Execute 'mv' for each file found: find ./ -name '<name pattern here>' -exec <comand here> \;
-		- e.g. find ./ -name '*article*' -exec mv {}  ../backup  \;
-			- note: {} represents a found filename
-		- OR find ./ -name '*article*' | xargs -I '{}' mv {} ../backup
-			- e.g. ls | find . -name "*.json" | xargs -I '{}' mv "{}-e" "{}"
-	- do-while loop: 
-		while true; do
 			<command(s)>
-			[[ <condition ]] | break 
 		done
+	- for `ls`:
+		for f in *.xml; do
+		    echo "File -> $f"
+		done
+		- see:
+			- https://superuser.com/questions/31464/looping-through-ls-results-in-bash-shell-script
+			- https://unix.stackexchange.com/questions/62660/the-result-of-ls-ls-and-ls
+	- see: 
+		- https://www.cyberciti.biz/faq/bash-for-loop/
+		- https://tldp.org/HOWTO/Bash-Prog-Intro-HOWTO-7.html
 
-		- examples:
-			while true; do
-				du -h myfile.zip;
-				sleep 5;
-			done
-	- Arg processing:
-		for arg in "$@"
+- copy file from user1 to user2 (user2 has elevated privileges):
+	- login as user1
+	- sudo su - user2
+	- <find file, do stuff with it, whatever>
+	- chmod 777 <file>
+	- mv <file> /tmp
+	- exit
+	- (still logged in as user1): cp /tmp/<file> ~/
+	- log back in as user2 and rm /tmp/<file>
+
+- redirect all out to file: 2>&1
+	- append (as opposed to redirect/overwrite): >>
+		E.g.: cat file1.txt >> file2.txt
+- xargs parse using comma as end of line, then echo each arg: xargs -E ',' -n1 echo
+	- note: -E might just be the mac os cmd, for linux it might be -d
+	- Execute 'mv' for each file found: find ./ -name '<name pattern here>' -exec <comand here> \;
+	- e.g. find ./ -name '*article*' -exec mv {}  ../backup  \;
+		- note: {} represents a found filename
+	- OR find ./ -name '*article*' | xargs -I '{}' mv {} ../backup
+		- e.g. ls | find . -name "*.json" | xargs -I '{}' mv "{}-e" "{}"
+- do-while loop: 
+	while true; do
+		<command(s)>
+		[[ <condition ]] | break 
+	done
+
+	- examples:
+		while true; do
+			du -h myfile.zip;
+			sleep 5;
+		done
+- Arg processing:
+	for arg in "$@"
+	do
+	    case $arg in
+		-i|--initialize)
+		SHOULD_INITIALIZE=1
+		shift # Remove --initialize from processing
+		;;
+		-c=*|--cache=*)
+		CACHE_DIRECTORY="${arg#*=}"
+		shift # Remove --cache= from processing
+		;;
+		-r|--root)
+		ROOT_DIRECTORY="$2"
+		shift # Remove argument name from processing
+		shift # Remove argument value from processing
+		;;
+		*)
+		OTHER_ARGUMENTS+=("$1")
+		shift # Remove generic argument from processing
+		;;
+	    esac
+	done
+- Return code of previous command: $?
+	true
+	echo $? # echoes 0
+	false
+	echo $? # echoes 1
+- Incrementing a variable:
+	- method 1:
+		i=$((i+1))
+		((i=i+1))
+	- method 2:
+		let "i=i+1"
+	- method 3:
+		i=0
+		until [ $i -gt 3 ]
 		do
-		    case $arg in
-			-i|--initialize)
-			SHOULD_INITIALIZE=1
-			shift # Remove --initialize from processing
-			;;
-			-c=*|--cache=*)
-			CACHE_DIRECTORY="${arg#*=}"
-			shift # Remove --cache= from processing
-			;;
-			-r|--root)
-			ROOT_DIRECTORY="$2"
-			shift # Remove argument name from processing
-			shift # Remove argument value from processing
-			;;
-			*)
-			OTHER_ARGUMENTS+=("$1")
-			shift # Remove generic argument from processing
-			;;
-		    esac
+		  echo i: $i
+		  ((i=i+1))
 		done
-	- Return code of previous command: $?
-		true
-		echo $? # echoes 0
-		false
-		echo $? # echoes 1
-	- Incrementing a variable:
-		- method 1:
-			i=$((i+1))
-			((i=i+1))
-		- method 2:
-			let "i=i+1"
-		- method 3:
-  			i=0
-			until [ $i -gt 3 ]
-			do
-			  echo i: $i
-			  ((i=i+1))
-			done
-	- Generate a random number (https://linuxhint.com/generate-random-number-bash/):
-		- /dev/urandom: `od -A n -t d -N 1 /dev/urandom`
-			- generates a number between 0 and 255
-		- echo $RANDOM
-			- generates a number between 0 and 32767
-		- echo $(( $RANDOM % <range high> + <range low> ))
-			- e.g. `echo $(( $RANDOM % 40 + 10 ))`
-				- generates a number between 10 (range low) and 40 (range high)
-	- Get the directory of a file:
-		- file=/path/to/file.txt
-		- echo ${file%/*}
-	- Resolve relative paths (like ./ and ../): $(readlink -f <path>)
-		- e.g. `echo $(readlink -f '../../../././my-directory/./my-file.txt')`
-		- e.g. `echo $(readlink -f '../../')`
-	- String comparisons (https://linuxize.com/post/how-to-compare-strings-in-bash/):
-		- exact matches: `if [[ <my var> == "<my value>" ]]; then echo "yep" fi
-			- e.g.:
-				`string="my string"`
-				`if [[ $string == "my string2" ]]; then echo "found"; else echo "nope"; fi`
-					- outputs `nope`
-		- wildcard matches: `[[ <my var> == *"<my value>"* ]]`
-			- e.g.: 
-				`if [[ $string == *" str"* ]]; then echo "found"; else echo "nope"; fi`
-					- outputs `found`
-				`if [[ $string == *" string" ]]; then echo "found"; else echo "nope"; fi`
-					- outputs `found`
-				`if [[ $string == " string"* ]]; then echo "found"; else echo "nope"; fi`
-					- outputs `nope` because no wildcard char is at the front of `" string"*`
-		- regex matches: `[[ <my var> =~ "<my value>" ]]`
-			- e.g.:
-				`if [[ $string =~ "[A-Za-z ]+ string" ]]; then echo "found"; else echo "nope"; fi`
-					- outputs `found`
-				`if [[ $string =~ "my stri{2,}ng" ]]; then echo "found"; else echo "nope"; fi`
-					- outputs `nope` because there aren't 2 or more 'i' chars in 'string'
-	- To go back to the previous working directory: `cd -`					
-	- See who's logged in: w
-	- Add line numbers to input/file: nl
-		- e.g. `w | nl`
-	- Permissions in octal form: `stat -c '%A %a %n' <file>`
-	- Tabs to spaces (or vice versa): expand or unexpand
-		- e.g. `echo "a\tb" | unexpand` yields `a	b`
-	- For binary files, `strings` (plus grep, etc.) lets you find bits of text
-	- The output of a command can be treated like a file via <(some command) (known as process substitution).
-	    	- e.g. `diff /etc/hosts <(ssh somehost cat /etc/hosts)`
-	- Folding text: use `fold`
-		- e.g. `echo "abcdefgijalskdjfabcdefgijalskdjfabcdefgijalskdjfabcdefgijalskdjfabcdefgijalskdjfabcdefgijalskdjfabcdefgijalskdjfabcdefgijalskdjfabcdefgijalskdjfabcdefgijalskdjfiqqiowueroiqwupeoriuqpweoiruqpwoeietupweroirtupwoeirutpoiqweuprioquweptoriuqtrepoiuqpiorupwoiertupweoirtupwoieruptuwoierupotiwure" | fold`
-			- result:
-				abcdefgijalskdjfabcdefgijalskdjfabcdefgijalskdjfabcdefgijalskdjfabcdefgijalskdjf
-				abcdefgijalskdjfabcdefgijalskdjfabcdefgijalskdjfabcdefgijalskdjfabcdefgijalskdjf
-				iqqiowueroiqwupeoriuqpweoiruqpwoeietupweroirtupwoeirutpoiqweuprioquweptoriuqtrep
-				oiuqpiorupwoiertupweoirtupwoieruptuwoierupotiwure
-	- Do something in different directory: `(cd <different dir> && <cmd>)`
-		- e.g. `(cd ~.git && ls)`
-			- Note: still in the original directory after executing
+- Generate a random number (https://linuxhint.com/generate-random-number-bash/):
+	- /dev/urandom: `od -A n -t d -N 1 /dev/urandom`
+		- generates a number between 0 and 255
+	- echo $RANDOM
+		- generates a number between 0 and 32767
+	- echo $(( $RANDOM % <range high> + <range low> ))
+		- e.g. `echo $(( $RANDOM % 40 + 10 ))`
+			- generates a number between 10 (range low) and 40 (range high)
+- Get the directory of a file:
+	- file=/path/to/file.txt
+	- echo ${file%/*}
+- Resolve relative paths (like ./ and ../): $(readlink -f <path>)
+	- e.g. `echo $(readlink -f '../../../././my-directory/./my-file.txt')`
+	- e.g. `echo $(readlink -f '../../')`
+- String comparisons (https://linuxize.com/post/how-to-compare-strings-in-bash/):
+	- exact matches: `if [[ <my var> == "<my value>" ]]; then echo "yep" fi
+		- e.g.:
+			`string="my string"`
+			`if [[ $string == "my string2" ]]; then echo "found"; else echo "nope"; fi`
+				- outputs `nope`
+	- wildcard matches: `[[ <my var> == *"<my value>"* ]]`
+		- e.g.: 
+			`if [[ $string == *" str"* ]]; then echo "found"; else echo "nope"; fi`
+				- outputs `found`
+			`if [[ $string == *" string" ]]; then echo "found"; else echo "nope"; fi`
+				- outputs `found`
+			`if [[ $string == " string"* ]]; then echo "found"; else echo "nope"; fi`
+				- outputs `nope` because no wildcard char is at the front of `" string"*`
+	- regex matches: `[[ <my var> =~ "<my value>" ]]`
+		- e.g.:
+			`if [[ $string =~ "[A-Za-z ]+ string" ]]; then echo "found"; else echo "nope"; fi`
+				- outputs `found`
+			`if [[ $string =~ "my stri{2,}ng" ]]; then echo "found"; else echo "nope"; fi`
+				- outputs `nope` because there aren't 2 or more 'i' chars in 'string'
+- To go back to the previous working directory: `cd -`					
+- See who's logged in: w
+- Add line numbers to input/file: nl
+	- e.g. `w | nl`
+- Permissions in octal form: `stat -c '%A %a %n' <file>`
+- Tabs to spaces (or vice versa): expand or unexpand
+	- e.g. `echo "a\tb" | unexpand` yields `a	b`
+- For binary files, `strings` (plus grep, etc.) lets you find bits of text
+- The output of a command can be treated like a file via <(some command) (known as process substitution).
+	- e.g. `diff /etc/hosts <(ssh somehost cat /etc/hosts)`
+- Folding text: use `fold`
+	- e.g. `echo "abcdefgijalskdjfabcdefgijalskdjfabcdefgijalskdjfabcdefgijalskdjfabcdefgijalskdjfabcdefgijalskdjfabcdefgijalskdjfabcdefgijalskdjfabcdefgijalskdjfabcdefgijalskdjfiqqiowueroiqwupeoriuqpweoiruqpwoeietupweroirtupwoeirutpoiqweuprioquweptoriuqtrepoiuqpiorupwoiertupweoirtupwoieruptuwoierupotiwure" | fold`
+		- result:
+			abcdefgijalskdjfabcdefgijalskdjfabcdefgijalskdjfabcdefgijalskdjfabcdefgijalskdjf
+			abcdefgijalskdjfabcdefgijalskdjfabcdefgijalskdjfabcdefgijalskdjfabcdefgijalskdjf
+			iqqiowueroiqwupeoriuqpweoiruqpwoeietupweroirtupwoeirutpoiqweuprioquweptoriuqtrep
+			oiuqpiorupwoiertupweoirtupwoieruptuwoierupotiwure
+- Do something in different directory: `(cd <different dir> && <cmd>)`
+	- e.g. `(cd ~.git && ls)`
+		- Note: still in the original directory after executing
 
-	- Arrays:	
-		- Array slicing (https://www.gnu.org/software/bash/manual/bash.htmlShell-Parameter-Expansion):
-			# See the [Parameter Expansion][1] section in the Bash `man` page.
-			# `A[@]` returns the contents of the array, `:1:2` takes a slice of
-			# length 2, starting at index 1.
+- Arrays:	
+	- Array slicing (https://www.gnu.org/software/bash/manual/bash.htmlShell-Parameter-Expansion):
+		# See the [Parameter Expansion][1] section in the Bash `man` page.
+		# `A[@]` returns the contents of the array, `:1:2` takes a slice of
+		# length 2, starting at index 1.
 
-		 	A=( foo bar "a  b c" 42 )
-		 	B=("${A[@]:1:2}")
-		 	C=("${A[@]:1}")       # slice to the end of the array
-		 	echo "${B[@]}"        # bar a  b c
-		 	echo "${B[1]}"        # a  b c
-		 	echo "${C[@]}"        # bar a  b c 42
-		 	echo "${C[@]: -2:2}"  # a  b c 42 # The space before the - is necesssary
-		- Array length: `${#ArrayName[@]}`, e.g. `echo ${#my_array[@]}`
-			- https://www.cyberciti.biz/faq/finding-bash-shell-array-length-elements/
+		A=( foo bar "a  b c" 42 )
+		B=("${A[@]:1:2}")
+		C=("${A[@]:1}")       # slice to the end of the array
+		echo "${B[@]}"        # bar a  b c
+		echo "${B[1]}"        # a  b c
+		echo "${C[@]}"        # bar a  b c 42
+		echo "${C[@]: -2:2}"  # a  b c 42 # The space before the - is necesssary
+	- Array length: `${#ArrayName[@]}`, e.g. `echo ${#my_array[@]}`
+		- https://www.cyberciti.biz/faq/finding-bash-shell-array-length-elements/
 
-	- Check for empty variable: if [ -z ${var+x} ]; then echo "var is unset"; else echo "var is set to '$var'"; fi
-		- "where ${var+x} is a parameter expansion which evaluates to nothing if var is unset, and substitutes the string x otherwise."
-		- also: `if [-n "$1"]; then echo "yes" else echo "no" fi`
-		- https://stackoverflow.com/questions/3601515/how-to-check-if-a-variable-is-set-in-bash
+- Check for empty variable: if [ -z ${var+x} ]; then echo "var is unset"; else echo "var is set to '$var'"; fi
+	- "where ${var+x} is a parameter expansion which evaluates to nothing if var is unset, and substitutes the string x otherwise."
+	- also: `if [-n "$1"]; then echo "yes" else echo "no" fi`
+	- https://stackoverflow.com/questions/3601515/how-to-check-if-a-variable-is-set-in-bash
 
-	- Calling a bash function: 
-		- Declare function in a file, say `file.sh`: `function (talk) { echo "hi!" }`
-		- From cmd line: `source file.sh; talk`
-		- From another script: same, put it on two separate lines though
-		- https://superuser.com/questions/106272/how-to-call-bash-functions
-	
-	- Return value from bash function:
-		- inside function: `echo $returnValue`
-			- e.g.:
-				function F2()
-				{
-					local retval='Using BASH Function'
-					echo "$retval"
-				}
-				# outside of function:
-				getval=$(F2)
-				echo $getval
+- Calling a bash function: 
+	- Declare function in a file, say `file.sh`: `function (talk) { echo "hi!" }`
+	- From cmd line: `source file.sh; talk`
+	- From another script: same, put it on two separate lines though
+	- https://superuser.com/questions/106272/how-to-call-bash-functions
 
-		- for an integer (0 success, non-zero for otherwise): `return X`
-			- e.g.:
-				function F4() {
-					echo 'Bash Return Statement'
-					return 35
-				}
-   				# outside of function:
-				F4
-				echo "Return value of the function is $?"
+- Return value from bash function:
+	- inside function: `echo $returnValue`
+		- e.g.:
+			function F2()
+			{
+				local retval='Using BASH Function'
+				echo "$retval"
+			}
+			# outside of function:
+			getval=$(F2)
+			echo $getval
 
-	- Pass all args to the bash function you're calling: `<func> "$@" "next command" "next next command" "etc."`
+	- for an integer (0 success, non-zero for otherwise): `return X`
+		- e.g.:
+			function F4() {
+				echo 'Bash Return Statement'
+				return 35
+			}
+			# outside of function:
+			F4
+			echo "Return value of the function is $?"
 
-	- Check if file exists:
-		if [ ! -f /path/to/file ] then
-    		    echo "File does not exist in Bash"
-		else
-    		    echo "File found. Do something meaningful here"
-		fi
-		- other file conditions: https://www.cyberciti.biz/faq/bash-check-if-file-does-not-exist-linux-unix/
+- Pass all args to the bash function you're calling: `<func> "$@" "next command" "next next command" "etc."`
 
-	- Get parts of file (https://stackoverflow.com/questions/23162299/how-to-get-the-last-part-of-dirname-in-bash):
-		- directory name: `$(dirname '/from/here/to/there.txt/')` yields `/from/here/to`
-		- file name: `$(basename '/from/here/to/there.txt/')` yields 'there.txt'
+- Check if file exists:
+	if [ ! -f /path/to/file ] then
+	    echo "File does not exist in Bash"
+	else
+	    echo "File found. Do something meaningful here"
+	fi
+	- other file conditions: https://www.cyberciti.biz/faq/bash-check-if-file-does-not-exist-linux-unix/
 
-	- Colors and Formatting (https://misc.flogisoft.com/bash/tip_colors_and_formatting):
-		- escape: \e
+- Get parts of file (https://stackoverflow.com/questions/23162299/how-to-get-the-last-part-of-dirname-in-bash):
+	- directory name: `$(dirname '/from/here/to/there.txt/')` yields `/from/here/to`
+	- file name: `$(basename '/from/here/to/there.txt/')` yields 'there.txt'
+
+- Colors and Formatting (https://misc.flogisoft.com/bash/tip_colors_and_formatting):
+	- escape: \e
+
+### Cmd Utilities
 
 grep:
 	- extended regexp, -E
@@ -452,9 +454,14 @@ date:
 		%Z   |	Timezone (abbrev.)			 | GMT
 
 		Example command: `date '+%D --- %T'` yields `04/15/24 --- 15:32:13`
+
+head: 
+	- Show first n lines of file (https://www.cyberciti.biz/faq/unix-linux-show-first-10-20-lines-of-file/): 
+		`head -<number> <file>`
+			- e.g. `head -10 myfile.txt`
 		
 
-OTHER TIPS:
+### Other Tips
 
 - Brace expansion using {...} can reduce having to re-type similar text and automate combinations of items. This is helpful in examples like mv foo.{txt,pdf} some-dir (which moves both files), cp somefile{,.bak} (which expands to cp somefile somefile.bak) or mkdir -p test-{a,b,c}/subtest-{1,2,3} (which expands all possible combinations and creates a directory tree). Brace expansion is performed before any other expansion.
 
