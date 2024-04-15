@@ -16,28 +16,6 @@ CMD reference:
 	- nth arg of current line: !#:n
 		- e.g. echo a b c !#:2 yields 'echo a b c b'
 
-- ls:
-	- list by date order: `-t`
-		- e.g. `ls -t *.txt`
-		- 'Time last modified'
-		- see https://www.zerotouch.com/faqs/111/ls-by-date
-
-- dates:
-	- convert timestamp to date (Mac): `date -r <timestamp>`
-		- use `-u` for UTC time
-		- e.g. `date -r 1267619929 -u`
-		- see https://stackoverflow.com/questions/2371248/how-to-convert-timestamps-to-dates-in-bash
-			- one-liner cross-platform: `date -d @1267619929 2>/dev/null || date -r 1267619929`
-	- get current timestamp: `echo $(date +%s)`
-		- https://stackoverflow.com/questions/17066250/create-timestamp-variable-in-bash-script
-
-- find:
-	- execute command for each result: find /path/to/start -type f -name "*.plist" -exec sed -i -e 's/SEARCH/REPLACE/g' \;
-		- another example: find . -name "*.jar" -exec echo {} \;
-			- The {} portion of this command represents the found filename, I believe
-			- Note that the semicolon after -exec needs to be escaped
-	- delete all found files: find . -name "*.txt" -delete
-
 - if:
 	if [ ! -z "$MYVAR1" ] && [ ! -z "$MYVAR2"]; then
 	<command1>
@@ -83,9 +61,10 @@ CMD reference:
 	- (still logged in as user1): cp /tmp/<file> ~/
 	- log back in as user2 and rm /tmp/<file>
 
-- redirect all out to file: 2>&1
+- redirect all output to file: 2>&1
 	- append (as opposed to redirect/overwrite): >>
 		E.g.: cat file1.txt >> file2.txt
+
 - xargs parse using comma as end of line, then echo each arg: xargs -E ',' -n1 echo
 	- note: -E might just be the mac os cmd, for linux it might be -d
 	- Execute 'mv' for each file found: find ./ -name '<name pattern here>' -exec <comand here> \;
@@ -93,6 +72,7 @@ CMD reference:
 		- note: {} represents a found filename
 	- OR find ./ -name '*article*' | xargs -I '{}' mv {} ../backup
 		- e.g. ls | find . -name "*.json" | xargs -I '{}' mv "{}-e" "{}"
+
 - do-while loop: 
 	while true; do
 		<command(s)>
@@ -104,6 +84,7 @@ CMD reference:
 			du -h myfile.zip;
 			sleep 5;
 		done
+
 - Arg processing:
 	for arg in "$@"
 	do
@@ -127,11 +108,13 @@ CMD reference:
 		;;
 	    esac
 	done
+
 - Return code of previous command: $?
 	true
 	echo $? # echoes 0
 	false
 	echo $? # echoes 1
+
 - Incrementing a variable:
 	- method 1:
 		i=$((i+1))
@@ -145,6 +128,7 @@ CMD reference:
 		  echo i: $i
 		  ((i=i+1))
 		done
+
 - Generate a random number (https://linuxhint.com/generate-random-number-bash/):
 	- /dev/urandom: `od -A n -t d -N 1 /dev/urandom`
 		- generates a number between 0 and 255
@@ -153,12 +137,15 @@ CMD reference:
 	- echo $(( $RANDOM % <range high> + <range low> ))
 		- e.g. `echo $(( $RANDOM % 40 + 10 ))`
 			- generates a number between 10 (range low) and 40 (range high)
+
 - Get the directory of a file:
 	- file=/path/to/file.txt
 	- echo ${file%/*}
+
 - Resolve relative paths (like ./ and ../): $(readlink -f <path>)
 	- e.g. `echo $(readlink -f '../../../././my-directory/./my-file.txt')`
 	- e.g. `echo $(readlink -f '../../')`
+
 - String comparisons (https://linuxize.com/post/how-to-compare-strings-in-bash/):
 	- exact matches: `if [[ <my var> == "<my value>" ]]; then echo "yep" fi
 		- e.g.:
@@ -179,6 +166,7 @@ CMD reference:
 				- outputs `found`
 			`if [[ $string =~ "my stri{2,}ng" ]]; then echo "found"; else echo "nope"; fi`
 				- outputs `nope` because there aren't 2 or more 'i' chars in 'string'
+
 - To go back to the previous working directory: `cd -`					
 - See who's logged in: w
 - Add line numbers to input/file: nl
@@ -267,6 +255,51 @@ CMD reference:
 	- escape: \e
 
 ### Cmd Utilities
+
+- ls:
+	- list by date order: `-t`
+		- e.g. `ls -t *.txt`
+		- 'Time last modified'
+		- see https://www.zerotouch.com/faqs/111/ls-by-date
+
+- date:
+	- convert timestamp to date (Mac): `date -r <timestamp>`
+		- use `-u` for UTC time
+		- e.g. `date -r 1267619929 -u`
+		- see https://stackoverflow.com/questions/2371248/how-to-convert-timestamps-to-dates-in-bash
+			- one-liner cross-platform: `date -d @1267619929 2>/dev/null || date -r 1267619929`
+	- get current timestamp: `echo $(date +%s)`
+		- https://stackoverflow.com/questions/17066250/create-timestamp-variable-in-bash-script
+	- date formatting options (https://www.tutorialkart.com/bash-shell-scripting/bash-date-format-options-examples/#gsc.tab=0):
+		Text |	Description				 | Example
+		----------------------------------------------------------
+		%a   |	Weekday					 | Mon
+		%A   |	Weekday					 | Monday
+		%b   |	Month					 | Jan
+		%B   |	Month					 | January
+		%d   |	Day					 | 04
+		%D   |	Date as MM/DD/YY			 | 04/15/24
+		%F   |	Date as YYYY-MM-DD			 | 2024-04-15
+		%H   |	Hour (24)				 | 18
+		%I   |	Hour (12)				 | 10
+		%j   |	Day (001..366)				 | 152
+		%m   |	Month (01..12)				 | 05
+		%M   |	Minutes					 | 52
+		%S   |	Seconds					 | 18
+		%T   |	Time as HH:MM:SS			 | 15:28:59
+		%u   |	Day (1..7)				 | 7
+		%U   |	Week (00..53)				 | 23
+		%Y   |	Year					 | 2018
+		%Z   |	Timezone (abbrev.)			 | GMT
+
+		- Example command: `date '+%D --- %T'` yields `04/15/24 --- 15:32:13`
+
+- find:
+	- execute command for each result: find /path/to/start -type f -name "*.plist" -exec sed -i -e 's/SEARCH/REPLACE/g' \;
+		- another example: find . -name "*.jar" -exec echo {} \;
+			- The {} portion of this command represents the found filename, I believe
+			- Note that the semicolon after -exec needs to be escaped
+	- delete all found files: find . -name "*.txt" -delete
 
 grep:
 	- extended regexp, -E
@@ -431,29 +464,7 @@ grep:
 	- `printf "\a"`
 
 date:
-	- formatting options (https://www.tutorialkart.com/bash-shell-scripting/bash-date-format-options-examples/#gsc.tab=0):
-		Text |	Description				 | Example
-		----------------------------------------------------------
-		%a   |	Weekday					 | Mon
-		%A   |	Weekday					 | Monday
-		%b   |	Month					 | Jan
-		%B   |	Month					 | January
-		%d   |	Day					 | 04
-		%D   |	Date as MM/DD/YY			 | 04/15/24
-		%F   |	Date as YYYY-MM-DD			 | 2024-04-15
-		%H   |	Hour (24)				 | 18
-		%I   |	Hour (12)				 | 10
-		%j   |	Day (001..366)				 | 152
-		%m   |	Month (01..12)				 | 05
-		%M   |	Minutes					 | 52
-		%S   |	Seconds					 | 18
-		%T   |	Time as HH:MM:SS			 | 15:28:59
-		%u   |	Day (1..7)				 | 7
-		%U   |	Week (00..53)				 | 23
-		%Y   |	Year					 | 2018
-		%Z   |	Timezone (abbrev.)			 | GMT
 
-		Example command: `date '+%D --- %T'` yields `04/15/24 --- 15:32:13`
 
 head: 
 	- Show first n lines of file (https://www.cyberciti.biz/faq/unix-linux-show-first-10-20-lines-of-file/): 
