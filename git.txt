@@ -52,6 +52,13 @@ GIT reference:
 	- e.g. `git fetch origin my-branch-1`
 	- can also use `pull` instead of `fetch`
 
+- Get the hash for the current commit: `git rev-parse HEAD`
+	- optionally, add `--short[=<number>]` to control how many chars: 
+		`git rev-parse --short HEAD` OR
+		`git rev-parse --short=12 HEAD`
+	- Can use other branches or tags too:
+		`git rev-parse branch1` OR
+		`git rev-parse v1.2.3`
+	- see (https://stackoverflow.com/questions/949314/how-do-i-get-the-hash-for-the-current-commit-in-git)
 
-	
 - Other things: https://tapajyoti-bose.medium.com/git-cheat-sheet-with-40-commands-concepts-ab1b9d973e96
