@@ -138,10 +138,6 @@ CMD reference:
 		- e.g. `echo $(( $RANDOM % 40 + 10 ))`
 			- generates a number between 10 (range low) and 40 (range high)
 
-- Get the directory of a file:
-	- file=/path/to/file.txt
-	- echo ${file%/*}
-
 - Resolve relative paths (like ./ and ../): $(readlink -f <path>)
 	- e.g. `echo $(readlink -f '../../../././my-directory/./my-file.txt')`
 	- e.g. `echo $(readlink -f '../../')`
@@ -249,8 +245,18 @@ CMD reference:
 
 - Get parts of file (https://stackoverflow.com/questions/23162299/how-to-get-the-last-part-of-dirname-in-bash):
 	- directory name: `$(dirname '/from/here/to/there.txt/')` yields `/from/here/to`
+		- also:
+			`file=/path/to/file.txt`
+			`echo ${file%/*}`
 	- file name: `$(basename '/from/here/to/there.txt/')` yields 'there.txt'
 
+- Check that file is empty (https://tecadmin.net/bash-script-check-if-file-is-empty-or-not/): 
+	`[ -z "$(cat filename.txt)" ]; then
+		echo "file is empty"
+	 else
+		echo "file is not empty"
+	 fi`
+	
 - Colors and Formatting (https://misc.flogisoft.com/bash/tip_colors_and_formatting):
 	- escape: \e
 
