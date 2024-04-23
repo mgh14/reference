@@ -476,9 +476,10 @@ head:
 	- Show first n lines of file (https://www.cyberciti.biz/faq/unix-linux-show-first-10-20-lines-of-file/): 
 		`head -<number> <file>`
 			- e.g. `head -10 myfile.txt`
-		
 
 ### Other Tips
+
+- Strip newline character: `tr -d '\n'`, e.g. `echo "123\n" | tr -d '\n' | pbcopy`
 
 - Brace expansion using {...} can reduce having to re-type similar text and automate combinations of items. This is helpful in examples like mv foo.{txt,pdf} some-dir (which moves both files), cp somefile{,.bak} (which expands to cp somefile somefile.bak) or mkdir -p test-{a,b,c}/subtest-{1,2,3} (which expands all possible combinations and creates a directory tree). Brace expansion is performed before any other expansion.
 
