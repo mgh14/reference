@@ -14,7 +14,7 @@ struct.unpack(<format>, <bytes>)
 ```
 
 ## .Wav specific: 
-import wav  # Note: only reads PCI audio or something
+`import wav  # Note: only reads PCI audio or something`
 
 `myWav = wav.open("/path/here.wav")`
 
