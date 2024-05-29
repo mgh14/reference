@@ -302,10 +302,11 @@ CMD reference:
 
 - find:
 	- execute command for each result: find /path/to/start -type f -name "*.plist" -exec sed -i -e 's/SEARCH/REPLACE/g' \;
+		- https://www.baeldung.com/linux/find-exec-command
 		- another example: find . -name "*.jar" -exec echo {} \;
 			- The {} portion of this command represents the found filename, I believe
 			- Note that the semicolon after -exec needs to be escaped
-		- https://www.baeldung.com/linux/find-exec-command
+		- another example: `find . -iname "*.mp3" -exec mv {} /home/path/to/folder \;`
 	- delete all found files: find . -name "*.txt" -delete
 
 grep:
