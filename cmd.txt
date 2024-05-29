@@ -305,6 +305,7 @@ CMD reference:
 		- another example: find . -name "*.jar" -exec echo {} \;
 			- The {} portion of this command represents the found filename, I believe
 			- Note that the semicolon after -exec needs to be escaped
+		- https://www.baeldung.com/linux/find-exec-command
 	- delete all found files: find . -name "*.txt" -delete
 
 grep:
