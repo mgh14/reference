@@ -307,6 +307,7 @@ CMD reference:
 			- The {} portion of this command represents the found filename, I believe
 			- Note that the semicolon after -exec needs to be escaped
 		- another example: `find . -iname "*.mp3" -exec mv {} /home/path/to/folder \;`
+		- use multiple -exec flags (https://stackoverflow.com/questions/5119946/find-exec-with-multiple-commands)
 	- delete all found files: find . -name "*.txt" -delete
 
 grep:
