@@ -62,3 +62,6 @@ GIT reference:
 	- see (https://stackoverflow.com/questions/949314/how-do-i-get-the-hash-for-the-current-commit-in-git)
 
 - Other things: https://tapajyoti-bose.medium.com/git-cheat-sheet-with-40-commands-concepts-ab1b9d973e96
+
+- Check which remote branches exist: `git ls-remote --heads origin`
+	- see https://stackoverflow.com/questions/32578224/cloning-a-branch-remote-branch-branch-99-not-found-in-upstream-origin
