@@ -19,6 +19,12 @@ GIT reference:
 		- e.g. `git push origin '0.32.0-alpha.0'`
 	- untag: git push origin :<version>
 		- e.g. `git push origin :1.1`
+
+- View a tag and its message/annotation:
+	- `git tag -l -n<number> "<version matcher>"`
+	- e.g. `git tag -l -n3 "v0.54.*"` 
+		- Lists any tag starting with the string "v0.54.", along with the <number> – in this case 3 – lines of the annotation (including commit message) 
+	- See https://stackoverflow.com/questions/5358336/how-to-list-all-tags-along-with-the-full-message-in-git
 		
 - Debug (https://gist.github.com/paolocarrasco/18ca8fe6e63490ae1be23e84a7039374):
 	- `GIT_TRACE=1 <git command>`
@@ -65,3 +71,6 @@ GIT reference:
 
 - Check which remote branches exist: `git ls-remote --heads origin`
 	- see https://stackoverflow.com/questions/32578224/cloning-a-branch-remote-branch-branch-99-not-found-in-upstream-origin
+
+- Show a summary of a diff: `git diff --compact-summary <revision>`
+	- e.g. (from branch `develop`): `git diff --compact-summary main`
