@@ -312,25 +312,59 @@ CMD reference:
 
 grep:
 	- extended regexp, -E
-		- (look for ');' at the end of each line): grep -E ");$" file.txt 
+		- Example: look for ');' at the end of each line: `grep -E ");$" file.txt`
+	- Regex:
+		- Line regexp, Only input lines selected against an entire fixed string or regular expression are considered to be matching lines: -x
+		- The expression is searched for as a word (as if surrounded by `[[:<:]]' and `[[:>:]]'; see re_format(7)): -w
+		- OR: `<a>|<b>`
+			- e.g. `grep -E 'vo|ce'`
+		- AND: use pipe and another grep command
+			- e.g. `grep 'word1' myfile.txt | grep 'word2' myfile.txt`
+		- Anchors (doesn't require -E): `^` start, `$` end
+			- e.g. `grep -w ^matt myfile.txt`
+			- Blank lines: `grep '^$' myfile.txt`
+		- Character ranges: `[<range]`
+			- e.g. `grep '[mM]att' myfile.txt`
+			- Classes:
+				- [:alnum:] - Alphanumeric
+				- [:alpha:] - Alphabetic
+				- [:blank:] - Space, tab
+				- [:digit:] - Numeric digits
+				- [:lower:] - Lower-case letters
+				- [:space:] - Tab, newline, vertical tab, form feed, carriage return, space
+				- [:upper:] - Upper-case letters
+				- e.g. `grep '[:upper:]' myfile.txt`
+				- "character class within a bracket selector": `grep "[[:upper]]" myfile.txt` 
+					- See https://www.digitalocean.com/community/tutorials/using-grep-regular-expressions-to-search-for-text-patterns-in-linux
+			- `^` negates all ranges in a set
+				- e.g. `grep '201[^0-9]' myfile.txt`
+			- `\<` and `\>` match the empty string at beginning and end of a word
+				- e.g. `grep '\<b.t\>' myfile.txt` matches all three letter words starting with 'b' and ending with 't'
+			- `\b` matches the empty string at the edge of a word
+				- e.g.
+		- Other Examples
+			- Display all lines with exactly two characters: `grep '^..$' myfile.txt`
+			- Pattern begins with a `-`: use -e
+				- e.g. `grep -e '--test--' myfile.txt`
+		- https://www.cyberciti.biz/faq/grep-regular-expressions/
 	- show line numbers: -n
-		grep -n "abc" file.txt
+		`grep -n "abc" file.txt`
 	- count instances: -c
-		grep -c "abc" file.txt
+		`grep -c "abc" file.txt`
 	- include/exclude file: --include or --exclude
-		grep --exclude "*.sql" "abc" file.sql
-		- grep recursively, filtering on filename: grep -r "string" --include="*.php" .
+		`grep --exclude "*.sql" "abc" file.sql`
+		- grep recursively, filtering on filename: `grep -r "string" --include="*.php" .`
 		- include/exclude directory: --include-dir --exclude-dir
-			- e.g. grep --exclude-dir={dir1,dir2,dir3} 
-		- NOTE: excludes TAKE PRECIDENCE OVER INCLUDES!!!
+			- e.g. `grep --exclude-dir={dir1,dir2,dir3}`
+		- NOTE: `excludes` TAKE PRECIDENCE OVER INCLUDES!!!
 		- https://stackoverflow.com/questions/6565471/how-can-i-exclude-directories-from-grep-r
 	- Don't search devices, FIFOs, sockets: -D skip
-		grep -R -D skip "abc" /
+		`grep -R -D skip "abc" /`
 	- Don't print filename: -h
 	- MULTIPLE PATTERNS!!! -e
-		grep -e "^abc.+" -e "^otherpattern.+" file.txt
+		`grep -e "^abc.+" -e "^otherpattern.+" file.txt`
 		- for multiple NOTs, use -ve for each:
-			grep -E -ve ";$" -ve "uigznaosy" -ve "--" -ve "^\s*$" -ve "^ALTER TABLE ONLY" -ve "\s+at org\.springframework" dev-core-db-dump-2-sep-2021.sql
+			`grep -E -ve ";$" -ve "uigznaosy" -ve "--" -ve "^\s*$" -ve "^ALTER TABLE ONLY" -ve "\s+at org\.springframework" dev-core-db-dump-2-sep-2021.sql`
 		- Positive match uses of -e function as OR's, not AND's:
 			grep -E -e "--" -e "^\s*$" -m 10 dev-core-db-dump-2-sep-2021.sql | grep -E -e "-- Dumped" -e "-- PostgreSQL database dump"
 				- this returns instances of lines with only ONE of the above final grep's -e pattern matched
@@ -342,8 +376,6 @@ grep:
 	- Max count/number of matches: -m
 	- Only show matching part of line: -o 
 	- Run silent, i.e. nonexistent or unreadable files ignored (messages suppressed): -s
-	- Line regexp, Only input lines selected against an entire fixed string or regular expression are considered to be matching lines: -x
-	- The expression is searched for as a word (as if surrounded by `[[:<:]]' and `[[:>:]]'; see re_format(7)): -w
 	- Prints a zero-byte after the file name: --null
 			
 - scp:
