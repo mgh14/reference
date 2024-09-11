@@ -85,6 +85,12 @@ DEPENDENCIES:
 		dependsOn(project(":project1:project2").tasks.jar) // or whatever other task besides 'jar' 
 	}
 
+- Specify a local jar as a dependency:
+	dependencies {
+		implementation files('relative/path-to-jar.jar')
+	}
+	- See https://stackoverflow.com/questions/20700053/how-to-add-local-jar-file-dependency-to-build-gradle-file
+
 BUILD FILE:
 - naming a jar:
   jar {
