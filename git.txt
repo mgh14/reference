@@ -76,3 +76,13 @@ GIT reference:
 
 - Show a summary of a diff: `git diff --compact-summary <revision>`
 	- e.g. (from branch `develop`): `git diff --compact-summary main`
+
+- Troubleshoot github asking for username/password on the command line 
+	- Is your SSH key working?	
+		- run `ssh -T git@github.com`; should respond with `Hi <user>! You've successfully authenticated, but GitHub does not provide shell access.`
+	- What is your project's remote URL set to?
+		- Run command to get remote repos
+		- If it starts with `https://`, change to `git@github.com:<path>/<project.git>`, e.g. `git@github.com:hashgraph/myrepo`
+			- e.g. `git remote add origin git@github.com:hashgraph/myrepo`
+			- If the command complains that the origin already exists, run `git remote -rm origin`, then rerun the `add` command
+	- see https://stackoverflow.com/questions/10909221/why-is-github-asking-for-username-password-when-following-the-instructions-on-sc
