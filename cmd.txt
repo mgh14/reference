@@ -267,6 +267,8 @@ CMD reference:
 		- e.g. `ls -t *.txt`
 		- 'Time last modified'
 		- see https://www.zerotouch.com/faqs/111/ls-by-date
+	- List all flags of a file: -O (letter 'O', not zero)
+		- e.g. `ls -lO dir/`
 
 - date:
 	- convert timestamp to date (Mac): `date -r <timestamp>`
@@ -504,13 +506,15 @@ grep:
 	- `say "word"` # most words probably work here
 	- `printf "\a"`
 
-date:
+- date:
 
 
-head: 
+- head: 
 	- Show first n lines of file (https://www.cyberciti.biz/faq/unix-linux-show-first-10-20-lines-of-file/): 
 		`head -<number> <file>`
 			- e.g. `head -10 myfile.txt`
+
+- List all
 
 ### Other Tips
 
