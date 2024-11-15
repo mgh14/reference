@@ -13,6 +13,8 @@ GRADLE:
 		gradle test --tests '*IntegTest.singleMethod'
 		gradle someTestTask --tests '*UiTest' someOtherTestTask --tests '*WebTest*ui'
 	- See also 'Test Filters' in the build file portion
+		- org.gradle.api.tasks.testing.TestFilter
+		- https://docs.gradle.org/current/javadoc/org/gradle/api/tasks/testing/TestFilter.html
 - Run without caching:
 	- delete `$HOME/.gradle`
 	- Run `./gradlew --no-daemon --no-configuration-cache --no-build-cache <task>`, e.g. `./gradlew --no-daemon --no-build-cache assemble`
