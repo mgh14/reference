@@ -249,6 +249,8 @@ CMD reference:
 			`file=/path/to/file.txt`
 			`echo ${file%/*}`
 	- file name: `$(basename '/from/here/to/there.txt/')` yields 'there.txt'
+		- Another example: `NAME="$(basename /foo/fizzbuzz.bar .bar)"` results in `fizzbuzz` assigned to NAME
+		- https://stackoverflow.com/questions/125281/how-do-i-remove-the-file-suffix-and-path-portion-from-a-path-string-in-bash
 
 - Check that file is empty (https://tecadmin.net/bash-script-check-if-file-is-empty-or-not/): 
 	`[ -z "$(cat filename.txt)" ]; then
@@ -259,6 +261,10 @@ CMD reference:
 	
 - Colors and Formatting (https://misc.flogisoft.com/bash/tip_colors_and_formatting):
 	- escape: \e
+
+- Append output to a file: use `>>` instead of `>`
+	- e.g. `echo "hello" >> file`
+	- https://stackoverflow.com/questions/6207573/how-to-append-output-to-the-end-of-a-text-file
 
 ### Cmd Utilities
 
