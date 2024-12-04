@@ -515,7 +515,9 @@ grep:
 		`head -<number> <file>`
 			- e.g. `head -10 myfile.txt`
 
-- List all
+- crontab:
+	- edit: `crontab -e`
+	- list all crons: `crontab -l`
 
 ### Other Tips
 
