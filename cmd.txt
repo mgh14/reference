@@ -129,6 +129,10 @@ CMD reference:
 		  ((i=i+1))
 		done
 
+- Check the length of a variable $variable:
+	- `echo "this variable has {#variable} length"`
+		- e.g. results in `this variable has 3 length`
+
 - Generate a random number (https://linuxhint.com/generate-random-number-bash/):
 	- /dev/urandom: `od -A n -t d -N 1 /dev/urandom`
 		- generates a number between 0 and 255
