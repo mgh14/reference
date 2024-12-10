@@ -63,3 +63,7 @@ iTerm2:
 - Add a shortcut for 'Edit Session' (changing title of terminal tab): 
 	- Click the + to add a binding. Click the first field and press the shortcut you want. For the action, choose "Change Profile".  A new field will appear where you can select the profile to change to.
 	- https://gitlab.com/gnachman/iterm2/-/issues/3046
+
+Displays:
+- Summary info: `system_profiler SPDisplaysDataType`
+- More detailed: `defaults read /Library/Preferences/com.apple.windowserver.displays.plist`
