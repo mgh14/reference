@@ -44,6 +44,10 @@ CMD:
 	- example install: sudo installer -package /Volumes/<image>/<image>.pkg -target / 
 	- unmount the image: sudo hdiutil detach /Volumes/<image>
 - Restart finder: killall Finder
+- Restart Mac OS X coreaudio daemon:
+	`sudo kill `ps -ax | grep 'coreaudiod' | grep 'sbin' |awk '{print $1}'`
+	`sudo killall coreaudiod`
+	- see https://gist.github.com/felipecsl/5177790
 
 Dock:
 - opt + cmd + click on dock item: hide everything else (e.g. opt + cmd + click on 'Sublime' hides everything but the Sublime windows)
