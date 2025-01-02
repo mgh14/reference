@@ -86,3 +86,10 @@ GIT reference:
 			- e.g. `git remote add origin git@github.com:hashgraph/myrepo`
 			- If the command complains that the origin already exists, run `git remote -rm origin`, then rerun the `add` command
 	- see https://stackoverflow.com/questions/10909221/why-is-github-asking-for-username-password-when-following-the-instructions-on-sc
+
+- Create a git patch from a branch: `git format-patch <base branch>..<feature-branch>`
+	- e.g. `git format-patch origin/main..my-feature-branch`
+	- Creates a patch file for each commit on the branch, in the current directory
+
+- List all branches that a commit belongs to: `git branch --contains <commit-hash>`
+	- e.g. `git branch --contains 104c547`
