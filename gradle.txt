@@ -1,5 +1,7 @@
 GRADLE:
 
+- See available tasks: `tasks`
+	- e.g.: `./gradlew tasks`
 - Skip tests (and other things, like linting): -x test
 	- e.g.: ./gradlew build -x test -x pmd -x lint
 - Only run specific tests: --tests <test expression>
@@ -163,6 +165,14 @@ tasks.test {
     jvmArgs("-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=*:5005")
 	// then attach a remote jvm debugger on the address port, and put a breakpoint in the test
 }
+– Output failed _and_ passed tests in gradle output:
+test {
+    testLogging {
+        events.addAll(listOf(TestLogEvent.PASSED, TestLogEvent.SKIPPED, TestLogEvent.FAILED))
+        showStandardStreams = true
+    }
+}
+
 
  
 TASKS:
