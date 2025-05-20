@@ -70,6 +70,13 @@ DOCKER reference:
 	- `dockerd`: ~/Library/Containers/com.docker.docker/Data/log/vm/dockerd.log
 	- `containerd`: ~/Library/Containers/com.docker.docker/Data/log/vm/containerd.log
 
+- Commit a LOCAL change to a new (local) docker image:
+	- Pull the image: `docker pull <image-name>:<tag>`
+	- Run the container with an interactive shell: `docker run -it --name my-container --entrypoint /bin/bash <image-name>:<tag>`
+	- Make changes in the container (e.g. copy a jar from one dir to another)
+	- Commit the change with an image label: `docker commit my-container my-new-image:latest`
+	- (Optional) Save the new image to a tar file: `docker save -o my-new-image.tar my-new-image:latest`
+
 DEBUGGING:
 - Inspect a container: `docker container inspect <container ID>`
 - Check which ports are mapped for a container: `docker port test`
